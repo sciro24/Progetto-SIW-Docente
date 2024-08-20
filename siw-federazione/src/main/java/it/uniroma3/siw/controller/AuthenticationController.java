@@ -125,7 +125,7 @@ public class AuthenticationController {
 			credenziali.setUtente(utente);
 			this.credenzialiService.save(credenziali);
 			model.addAttribute("utente", utente);
-			return "registrazioneSuccesso.html";
+			return "registrazioneSuccessful.html";
 		}
 		model.addAttribute("utente", utente);
 		model.addAttribute("credenziali", credenziali);

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>REGISTRAZIONE CONCLUSA</title>
+	<link rel="stylesheet" href="/css/stile2.css" />
+</head>
+
+<body>
+	<div class="container">
+
+	<div>
+		<img src="/images/logo-siw.png" width="10%"/></a>
+	</div>
+	<h1>Congratulazioni <span th:text="${utente.nome}"></span> ti sei registrato!</h1>
+	<div>
+		<span>Nome: </span>
+		<span th:text="${utente.nome}"></span>
+	<br>
+		<span>Cognome: </span>
+		<span th:text="${utente.cognome}"></span>
+	<br>
+		<span>Email: </span>
+		<span th:text="${utente.email}"></span>
+	</div>
+	<div><BR><a href="/index.html">ACCEDI ORA</a> </div>
+</body>
+</html>

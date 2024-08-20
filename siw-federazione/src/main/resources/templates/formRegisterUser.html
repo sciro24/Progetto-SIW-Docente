@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<head>
+    <title>Registrazione</title>
+    <link rel="stylesheet" href="/css/stile.css">
+    <style>
+        body {
+            background-color: darkgrey;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        input[type=text]:focus,
+        input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            opacity: 1;
+        }
+
+        .container {
+            background-color: #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            margin: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .left-column,
+        .right-column {
+            flex: 1;
+        }
+
+        .container img {
+            width: 20%;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .center a {
+            color: #04AA6D;
+            text-decoration: none;
+        }
+
+        .center a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-wrapper">
+        <form th:action="@{/register}" method="POST">
+            <h1>Registrazione</h1>
+             <a href="/" id="home-button">Home</a>
+            <p>Per favore, compila il form per registrarti.</p>
+            <hr>
+            <div class="container">
+                <div class="left-column">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text"  placeholder="nome" required th:field="${utente.nome}">
+                        <span th:if="${#fields.hasErrors('utente.nome')}" th:errors="${utente.nome}" style="color:red"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="cognome">Cognome</label>
+                        <input type="text"  placeholder="cognome" required th:field="${utente.cognome}">
+                        <span th:if="${#fields.hasErrors('utente.cognome')}" th:errors="${utente.cognome}" style="color:red"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text"  placeholder="email" required th:field="${utente.email}">
+                        <span th:if="${#fields.hasErrors('utente.email')}" th:errors="${utente.email}" style="color:red"></span>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text"  placeholder="username" required th:field="${credenziali.username}">
+                        <span th:if="${#fields.hasErrors('credenziali.username')}" th:errors="${credenziali.username}" style="color:red"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password"  placeholder="password" required th:field="${credenziali.password}">
+                        <span th:if="${#fields.hasErrors('credenziali.password')}" th:errors="${credenziali.password}" style="color:red"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Data di nascita</label><br>
+                    	<input type="date" placeholder="Data di nascita"  th:field="${utente.dataNascita}"/>
+                    	<span th:if="${#fields.hasErrors('utente.dataNascita')}" th:error="${utente.dataNascita}" style="color:red"></span>
+                    </div>
+                </div>
+                <button type="submit">Registrati</button>
+            </div>
+        </form>
+
+        <div class="center">
+            <label>Gia' registrato?</label>
+            <a th:href="@{/login}" th:text="'Accedi'"></a>
+        </div>
+    </div>
+</body>
+</html>
