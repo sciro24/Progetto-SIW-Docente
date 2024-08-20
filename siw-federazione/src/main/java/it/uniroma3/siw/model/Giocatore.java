@@ -120,7 +120,7 @@ public class Giocatore {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cognome, id, ruolo, squadra);
+		return Objects.hash(nome, cognome, dataNascita, luogoNascita);
 	}
 
 	@Override

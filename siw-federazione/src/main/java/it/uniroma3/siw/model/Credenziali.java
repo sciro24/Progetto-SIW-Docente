@@ -1,6 +1,8 @@
 package it.uniroma3.siw.model;
 
 
+import java.util.Objects;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,8 +17,10 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Credenziali {
 
-	public static final String PRESIDENT_ROLE = "PRESIDENT";
-	public static final String ADMIN_ROLE = "ADMIN";
+	public static final String DEFAULT_ROLE = "DEFAULT";
+	public static final String PRESIDENT_ROLE = "PRESIDENTE";
+	public static final String ADMIN_ROLE = "AMMINISTRATORE";
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "credenziali_generator")
@@ -76,6 +80,24 @@ public class Credenziali {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, username, utente);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Credenziali other = (Credenziali) obj;
+		return Objects.equals(id, other.id) && Objects.equals(username, other.username)
+				&& Objects.equals(utente, other.utente);
 	}
 
 }

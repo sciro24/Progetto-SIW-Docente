@@ -1,12 +1,16 @@
 package it.uniroma3.siw.model;
 
 
-import jakarta.persistence.CascadeType;
+import java.time.LocalDate;
+import java.util.Objects;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 
@@ -17,81 +21,77 @@ public class Utente {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "utente_generator")
     @SequenceGenerator(name = "utente_generator", sequenceName = "utente_seq", allocationSize = 1)
-    private Long id;
+    public Long id;
 
+    @Column(nullable = false)
     @NotBlank
-    private String nome;
+    public String nome;
 
+    @Column(nullable = false)
     @NotBlank
-    private String cognome;
+    public String cognome;
 
-    @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)
-    private Presidente presidente;
+    @Column(nullable = false)
+    @DateTimeFormat(pattern="dd-MM-yyyy")
+    public LocalDate dataNascita;
 
-    @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)
-    private Credenziali credenziali;
+    @Column(unique = true, nullable = false)
+    public String email;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Utente other = (Utente) obj;
+        return Objects.equals(email, other.email);
+    }
 
-	public Long getId() {
-		return id;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getNome() {
-		return nome;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getCognome() {
-		return cognome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
+    public String getCognome() {
+        return cognome;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((cognome == null) ? 0 : cognome.hashCode());
-		return result;
-	}
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Utente other = (Utente) obj;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (cognome == null) {
-			if (other.cognome != null)
-				return false;
-		} else if (!cognome.equals(other.cognome))
-			return false;
-		return true;
-	}
+    public LocalDate getDataNascita() {
+        return dataNascita;
+    }
 
-	public Credenziali getCredenziali() {
-		return credenziali;
-	}
+    public void setDataNascita(LocalDate dataNascita) {
+        this.dataNascita = dataNascita;
+    }
 
-	public void setCredenziali(Credenziali credenziali) {
-		this.credenziali = credenziali;
-	}
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
