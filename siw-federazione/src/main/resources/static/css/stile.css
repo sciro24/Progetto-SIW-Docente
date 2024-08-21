@@ -1,0 +1,67 @@
+body {
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+margin: 0;
+font-family: Arial, sans-serif;
+background-color: darkgrey;
+}
+.container {
+text-align: center;
+background: white;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.container img {
+display: block;
+margin: 0 auto 20px;
+}
+.container h1 {
+margin: 20px 0;
+}
+.container div {
+margin: 10px 0;
+}
+.container a {
+display: inline-block;
+margin: 10px 0;
+padding: 10px 20px;
+background-color: rgb(192, 66, 49);
+color: white;
+text-decoration: none;
+border-radius: 5px;
+}
+.container a:hover {
+background-color: #0056b3;
+}
+nav {
+width: 100%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+#home-button {
+padding: 10px 20px;
+}
+.auth-buttons {
+display: flex;
+align-items: center;
+}
+.auth-buttons a, .auth-buttons span {
+padding: 10px 20px;
+}
+.back-button {
+position: absolute;
+top: 10px;
+left: 10px;
+}
+
+/* Rimuove i bullet points dall'elenco */
+ul {
+    list-style-type: none; /* Rimuove i bullet points */
+    padding: 0;           /* Rimuove il padding predefinito */
+    margin: 0;            /* Rimuove il margine predefinito */
+}
+
