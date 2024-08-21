@@ -116,8 +116,6 @@ public class AuthenticationController {
 		this.utenteValidator.validate(utente, utenteBindingResult);
 		this.credenzialiValidator.validate(credenziali, credenzialiBindingResult);
 		if(!utenteBindingResult.hasErrors() || !credenzialiBindingResult.hasErrors()) {
-			String username = credenziali.getUsername();
-			utente.setEmail(username);
 
 			credenziali.setRole(Credenziali.DEFAULT_ROLE);
 

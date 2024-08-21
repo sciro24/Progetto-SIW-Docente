@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head>
+
+    <title>Federazione Sportiva</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .container p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .container .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .container .buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .container .buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .container .buttons .signup-btn {
+            background-color: #28a745;
+        }
+
+        .container .buttons .signup-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Benvenuto nel portale della Federazione Sportiva</h1>
+        <p>Per visionare le squadre e i giocatori, e' necessario accedere al portale.</p>
+        <div class="buttons">
+            <button class="login-btn" onclick="window.location.href='/login';">Accedi</button>
+            <button class="signup-btn" onclick="window.location.href='/register';">Iscriviti</button>
+        </div>
+    </div>
+</body>
+</html>
