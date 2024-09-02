@@ -72,7 +72,7 @@ public class AdminController {
            model.addAttribute("utente", utente);
            model.addAttribute("credenziali", credenziali);
            model.addAttribute("presidente", presidente);
-            return "admin/presidenteAggiunto.html";
+            return "admin/presidenteCreato.html";
         }
         model.addAttribute("utente", utente);
         model.addAttribute("credenziali", credenziali);
@@ -128,7 +128,7 @@ public class AdminController {
         }
         this.squadraService.save(squadra);
         model.addAttribute("squadra", squadra);
-        return "admin/squadraAggiunta.html";
+        return "admin/squadraCreata.html";
     }
 
     @GetMapping("/admin/formAssegnaPresidente")

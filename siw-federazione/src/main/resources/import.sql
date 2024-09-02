@@ -14,3 +14,15 @@ insert into credenziali(id, password, role, username, utente_id) values (nextval
 insert into credenziali(id, password, role, username, utente_id) values (nextval('credenziali_seq'), '$2a$10$KTHFybov.hr94njClsS7qu/V21ngPGM9nCJlBbi6cOAOP7urmTQMe', 'PRESIDENTE', 'Lorenzo', (select id from utente where email = 'lorenzo.scirocco@gmail.com'));
 insert into credenziali(id, password, role, username, utente_id) values (nextval('credenziali_seq'), '$2a$10$qE/4gbq.UiOrY8shvwk/VOO/3d3KJ6F7qmmyhVKJjZGjgk2mV5SFm', 'DEFAULT', 'Fede', (select id from utente where email = 'bianchi@gmail.com'));
 insert into credenziali(id, password, role, username, utente_id) values (nextval('credenziali_seq'), '$2a$10$vInxSibcoAYUgjt6BFjluOLRCqL8/QJdwLpHQc6LA3xwQq8lprpCm', 'DEFAULT', 'Fra', (select id from utente where email = 'neri@gmail.com')); 
+
+
+-- Inserimento Presidente
+insert into presidente(id, codice_fiscale, luogo_nascita, utente_id) values (nextval('presidente_seq'), 'MRCH501 ' , 'Roma', (select id from utente where email = 'marco.marconi@gmail.com'));
+insert into presidente(id, codice_fiscale, luogo_nascita, utente_id) values (nextval('presidente_seq'), 'NDRH501 ' , 'Roma', (select id from utente where email = 'andriu.macale@hotmail.com'));
+insert into presidente(id, codice_fiscale, luogo_nascita, utente_id) values (nextval('presidente_seq'), 'LRNZH501 ' , 'Roma', (select id from utente where email = 'lorenzo.scirocco@gmail.com'));
+
+
+-- Inserimento Squadra
+insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1927 ' , 'Via Uffici del Vicario' , 'ASRoma' , NULL);
+-- insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1907 ' , 'Via Fiume Giallo' , 'Alba' , NULL);
+-- insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1907 ' , 'Via Oceano Atlantico' , 'Fortitudo' , NULL);
