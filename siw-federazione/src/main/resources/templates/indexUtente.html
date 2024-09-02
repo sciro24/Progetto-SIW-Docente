@@ -64,13 +64,30 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Benvenuto nel portale della Federazione Sportiva</h1>
-        <p>Per visionare le squadre e i giocatori, e' necessario accedere al portale.</p>
-        <div class="buttons">
-            <button class="login-btn" onclick="window.location.href='/login';">Accedi</button>
-            <button class="signup-btn" onclick="window.location.href='/register';">Iscriviti</button>
-        </div>
+	<div class="container">
+
+	
+	<!-- PULSANTE LOGIN/LOGOUT -->
+	<header>
+		
+	<div th:if="${userDetails}">
+	   <span th:text="${userDetails.username}"></span>
+	   <a href="/logout">Logout</a>
+	</div>
+	<div sec:authorize="!isAuthenticated()">
+	   <a href="/login">Login</a>
+	</div>
+
+	</header>
+	
+	
+	<div><img src="/images/logo-siw.png" width="10%" /></div>
+	<h1>BENVENUTO ALL'INTERNO DELLA FEDERAZIONE</h1>
+	<div>
+		<a href="/ricetta">Tutte le Squadre</a><br><br>
+     </div>
     </div>
+
+
 </body>
 </html>
