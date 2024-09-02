@@ -29,7 +29,7 @@ public class Squadra {
     private String nome;
 
     @NotNull
-    private int annoFondazione;
+    private String annoFondazione;
 
     @NotBlank
     private String indirizzoSede;
@@ -57,11 +57,11 @@ public class Squadra {
 		this.nome = nome;
 	}
 
-	public int getAnnoFondazione() {
+	public String getAnnoFondazione() {
 		return annoFondazione;
 	}
 
-	public void setAnnoFondazione(int annoFondazione) {
+	public void setAnnoFondazione(String annoFondazione) {
 		this.annoFondazione = annoFondazione;
 	}
 

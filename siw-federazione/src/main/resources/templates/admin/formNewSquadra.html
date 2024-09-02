@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<head>
+
+    <title>Nuova Squadra</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .container p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .container .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .container .buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .container .buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .container .buttons .signup-btn {
+            background-color: #28a745;
+        }
+
+        .container .buttons .signup-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+	<div class="container">
+
+	
+	
+	<div><img src="/images/logo-siw.png" width="10%" /></div>
+	<h1>INSERISCI UNA NUOVA SQUADRA</h1>
+	 <section>
+        <form th:action="@{'/admin/squadra'}" method="post">
+            <p><sup>*</sup>: Campo obbligatorio</p>
+            <p>
+                <label>Nome<sup>*</sup></label><br>
+                <input type="text" name="nome" />
+            </p>
+            <p>
+                <label>Anno di fondazione<sup>*</sup></label><br>
+                <input type="text" name="annoFondazione" />
+            </p>
+            <p>
+                <label>Sede<sup>*</sup></label><br>
+                <input type="text" name="sede" />
+            </p>
+            <p>
+                <button>
+                    <a href="/">INDIETRO</a>
+                </button>
+                <button type="submit">INSERISCI</button>
+            </p>
+            <div th:object="${squadra}">
+                <ul th:if="${#fields.hasGlobalErrors()}">
+                    <p style="color: red">Errori squadra:</p>
+                    <li th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+                        ...
+                    </li>
+                </ul>
+            </div>
+        </form>
+
+    </section>
+
+</body>
+</html>
