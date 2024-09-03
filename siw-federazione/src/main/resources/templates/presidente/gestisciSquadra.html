@@ -85,7 +85,7 @@
         <h2>Gestione del <span th:text="${squadra.nome}"></span></h2>
         <div id="flex-azioni">
             <div class="azioni">
-                <a style="color: white"  th:href="@{'/presidente/squadraId='+${squadra.id}+'/formAggiungiGiocatore'}">
+                <a style="color: white"  th:href="@{'/presidente/'+${squadra.id}+'/formAggiungiGiocatore'}">
                     <table class="azioni">
                         <tr style="height: 100%">
                             <td style="width: 90%">

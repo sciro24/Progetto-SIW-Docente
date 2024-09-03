@@ -69,60 +69,41 @@
 	
 	
 	<div><img src="/images/logo-siw.png" width="10%" /></div>
-	<h1>INSERISCI UN NUOVO GIOCATORE</h1>
-	 <section>
-        <h2>Aggiungi giocatore alla squadra <span th:text="${squadra.nome}"></span></h2>
-        <form th:action="@{'/presidente/squadraId='+${squadra.id}+'/giocatore'}" method="post">
+	   <section>
+        <h2>Rimuovi un giocatore dalla squadra <span th:text="${squadra.nome}"></span></h2>
+        <form th:action="@{'/presidente/'+${squadra.id}+'/rimuovi'}" method="post">
             <p><sup>*</sup>: Campo obbligatorio</p>
             <p>
-                <label>Nome<sup>*</sup></label><br>
-                <input type="text" name="nome" />
-            </p>
-            <p>
-                <label>Cognome<sup>*</sup>:</label><br>
-                <input type="text" name="cognome" />
-            </p>
-            <p>
-                <label>Data di nascita<sup>*</sup>:</label><br>
-                <input type="date" name="dataNascita" />
-            </p>
-            <p>
-                <label>Luogo di nascita<sup>*</sup>:</label><br>
-                <input type="text" name="luogoNascita" />
-            </p>
-            <p>
-                <label>Ruolo<sup>*</sup>:</label><br>
-                <select name="ruolo">
+                <label>Giocatore<sup>*</sup></label><br>
+                <select name="id">
                     <option value=""></option>
-                    <option value="Portiere">Portiere</option>
-                    <option value="Terzino sinistro">Terzino sinistro</option>
-                    <option value="Difensore centrale">Difensore centrale</option>
-                    <option value="Terzino destro">Terzino destro</option>
-                    <option value="Esterno sinistro">Esterno sinistro</option>
-                    <option value="Centrocampista">Centrocampista</option>
-                    <option value="Esterno destro">Esterno destro</option>
-                    <option value="Attaccante">Attaccante</option>
+                    <span th:each="giocatore : ${giocatori}">
+                        <option th:value="*{giocatore.id}">
+                            <span th:text="*{giocatore.nome}">
+                                Nome
+                            </span>
+                             <span th:text="*{giocatore.cognome}">
+                                Cognome
+                            </span>
+                             <span th:text="*{#temporals.format(giocatore.dataNascita, 'dd-MM-yyyy')}">
+                                Data
+                            </span>
+                            <span th:text="*{giocatore.luogoNascita}">
+                                Luogo
+                            </span>
+                        </option>
+                    </span>
                 </select>
             </p>
             <p>
-                <label>Inizio tesseramento<sup>*</sup>:</label><br>
-                <input type="date" name="dataInizio" />
-            </p>
-            <p>
-                <label>Fine tesseramento<sup>*</sup>:</label><br>
-                <input type="date" name="dataFine" />
-            </p>
-
-            <p>
                 <button>
-                    <a th:href="'/presidente/squadraId='+${squadra.id}+'/gestisciSquadra'">
+                    <a th:href="'/presidente/'+${squadra.id}+'/gestisciSquadra'">
                         INDIETRO
                     </a>
                 </button>
-                <button type="submit">INSERISCI</button>
+                <button type="submit">RIMUOVI</button>
             </p>
         </form>
-
     </section>
 </body>
 </html>

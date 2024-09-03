@@ -40,7 +40,7 @@ public class PresidenteController {
 
     private boolean controllaPresidente(Squadra squadra) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Utente utente = this.utenteService.findByEmail(userDetails.getUsername());
+        Utente utente = this.utenteService.findByUsername(userDetails.getUsername());
         Presidente presidente = this.presidenteService.findByUtente(utente);
         return squadra.getPresidente().equals(presidente);
     }
@@ -94,7 +94,7 @@ public class PresidenteController {
             giocatore = this.giocatoreService.findByNomeAndCognomeAndDataNascitaAndLuogoNascita(nome, cognome, nascita, luogoNascita);
             if (!this.tesseramentoService.checkTesseramenti(dataInizio, dataFine, giocatore.getId())) {
                 model.addAttribute("squadra", squadra);
-                model.addAttribute("errore", "Il giocatore è già tesserato nel periodo selezionato!");
+                model.addAttribute("errore", "Il giocatore e' gia' tesserato nel periodo selezionato!");
                 return "presidente/giocatoreNonInserito.html";
             }
         } else {
@@ -113,7 +113,7 @@ public class PresidenteController {
     }
 
     @GetMapping("/presidente/{id}/formRimuoviGiocatore")
-    public String formEsoneraGiocatore(@PathVariable("id")Long id, Model model)  {
+    public String formRimuoviGiocatore(@PathVariable("id")Long id, Model model)  {
         Squadra squadra = this.squadraService.findById(id);
         model.addAttribute("squadra", squadra);
         if (!this.controllaPresidente(squadra)) {
@@ -124,7 +124,7 @@ public class PresidenteController {
     }
 
     @PostMapping("/presidente/{id}/rimuovi")
-    public String esoneraGiocatore(@PathVariable("id")Long id, @ModelAttribute("giocatore") Giocatore giocatore, Model model) {
+    public String rimuoviGiocatore(@PathVariable("id")Long id, @ModelAttribute("giocatore") Giocatore giocatore, Model model) {
         Squadra squadra = this.squadraService.findById(id);
         model.addAttribute("squadra", squadra);
         if (!this.controllaPresidente(squadra)) {
