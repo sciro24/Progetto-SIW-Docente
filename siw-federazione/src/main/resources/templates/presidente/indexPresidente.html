@@ -90,11 +90,11 @@
         <p>
             <span th:if="${squadra}">
                 <button>
-                    <a th:href="@{'/presidente/squadraId='+${squadra.id}+'/gestisciSquadra'}"><span th:text="${nome}">Squadra</span></a>
+                    <a th:href="@{'/presidente/'+${squadra.id}+'/gestisciSquadra'}"><span th:text="${nome}">Squadra</span></a>
                 </button>
             </span>
             <span th:unless="${squadra}">
-                Non presiedi nessuna squadra!
+                Non sei presidente di nessuna squadra!
             </span> 
         </p>
        
