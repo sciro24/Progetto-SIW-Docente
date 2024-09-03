@@ -24,5 +24,5 @@ insert into presidente(id, codice_fiscale, luogo_nascita, utente_id) values (nex
 
 -- Inserimento Squadra
 insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1927 ' , 'Via Uffici del Vicario' , 'ASRoma' , NULL);
--- insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1907 ' , 'Via Fiume Giallo' , 'Alba' , NULL);
--- insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1907 ' , 'Via Oceano Atlantico' , 'Fortitudo' , NULL);
+insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1907 ' , 'Via Fiume Giallo' , 'Alba' , NULL);
+insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1907 ' , 'Via Oceano Atlantico' , 'Fortitudo' , NULL);

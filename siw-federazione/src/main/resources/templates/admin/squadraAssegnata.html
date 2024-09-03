@@ -78,43 +78,22 @@
 	   <a href="/login">Login</a>
 	</div>
 
+	</header>
 	
-    <div style="text-align: center;">
-        <img src="/images/logo-siw.png" width="10%" alt="Logo SIW" />
-    </div>
-    <h1 style="text-align: center;">BENTORNATO AMMINISTRATORE:</h1>
-</header>
+	
+	<div><img src="/images/logo-siw.png" width="10%" /></div>
+	<h1>COMPLIMENTI:</h1>
+	<div>
+		 
+      <section>
+        <p>La Squadra è stata assegnata!</p>
+        <button>
+            <a href="/">AVANTI</a>
+        </button>
+    </section>
 
-<section style="text-align: center;">
-    <h2>
-        <span th:text="${utente.nome}">Nome</span>
-        <span th:text="${utente.cognome}">Cognome</span>
-    </h2>
-
-    <div id="flex-azioni" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-        <div class="azioni">
-            <a href="admin/formNewSquadra" style="color: white; text-decoration: none;">
-                <p>Aggiungi squadra</p>
-            </a>
-        </div>
-        
-        <div class="azioni">
-            <a href="admin/formNewPresidente" style="color: white; text-decoration: none;">
-                <p>Aggiungi presidente</p>
-            </a>
-        </div>
-        <div class="azioni">
-            <a href="admin/formAssegnaSquadra" style="color: white; text-decoration: none;">
-                <p>Assegna Squadra</p>
-            </a>
-        </div>
-        <div class="azioni">
-            <a href="admin/formCambiaSquadra" style="color: white; text-decoration: none;">
-                <p>Cambia Squadra</p>
-            </a>
-        </div>
+     </div>
     </div>
-</section>
 
 
 </body>

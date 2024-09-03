@@ -92,33 +92,33 @@ public class AdminController {
         return "admin/selezionaSquadra.html";
     }
 
-    @GetMapping("/admin/formModificaSquadra/{id}")
-    public String formModificaSquadra(@PathVariable("id")Long id, Model model){
-        model.addAttribute("squadra", this.squadraService.findById(id));
-        return "admin/formModificaSquadra.html";
-    }
-
-    @PostMapping("/admin/modificaSquadra/{id}")
-    public String modificaSquadra(@PathVariable("id") Long id, @RequestParam("nome") String nome, @RequestParam("annoFondazione") String anno, @RequestParam("sede") String sede, Model model) {
-        Squadra squadra = this.squadraService.findById(id);
-        List<String> modifiche = new ArrayList<>();
-        if (!nome.isEmpty()) {
-            squadra.setNome(nome);
-            modifiche.add("nome");
-        }
-        if (!anno.isEmpty()) {
-            squadra.setAnnoFondazione(anno);
-            modifiche.add("anno di fondazione");
-        }
-        if (!sede.isEmpty()) {
-            squadra.setIndirizzoSede(sede);
-            modifiche.add("sede");
-        }
-        this.squadraService.save(squadra);
-        model.addAttribute("squadra", squadra);
-        model.addAttribute("modifiche", modifiche);
-        return "admin/squadraModificata.html";
-    }
+//    @GetMapping("/admin/formModificaSquadra/{id}")
+//    public String formModificaSquadra(@PathVariable("id")Long id, Model model){
+//        model.addAttribute("squadra", this.squadraService.findById(id));
+//        return "admin/formModificaSquadra.html";
+//    }
+//
+//    @PostMapping("/admin/modificaSquadra/{id}")
+//    public String modificaSquadra(@PathVariable("id") Long id, @RequestParam("nome") String nome, @RequestParam("annoFondazione") String anno, @RequestParam("sede") String sede, Model model) {
+//        Squadra squadra = this.squadraService.findById(id);
+//        List<String> modifiche = new ArrayList<>();
+//        if (!nome.isEmpty()) {
+//            squadra.setNome(nome);
+//            modifiche.add("nome");
+//        }
+//        if (!anno.isEmpty()) {
+//            squadra.setAnnoFondazione(anno);
+//            modifiche.add("anno di fondazione");
+//        }
+//        if (!sede.isEmpty()) {
+//            squadra.setIndirizzoSede(sede);
+//            modifiche.add("sede");
+//        }
+//        this.squadraService.save(squadra);
+//        model.addAttribute("squadra", squadra);
+//        model.addAttribute("modifiche", modifiche);
+//        return "admin/squadraModificata.html";
+//    }
 
     @PostMapping("/admin/squadra")
     public String newSquadra(@Valid @ModelAttribute("squadra") Squadra squadra, BindingResult bindingResult, Model model) {
@@ -131,41 +131,41 @@ public class AdminController {
         return "admin/squadraCreata.html";
     }
 
-    @GetMapping("/admin/formAssegnaPresidente")
+    @GetMapping("/admin/formAssegnaSquadra")
     public String formAssegnaPresidente(Model model) {
         model.addAttribute("squadre", this.squadraService.findSenzaPresidente());
         model.addAttribute("presidenti", this.presidenteService.findLiberi());
         model.addAttribute("errore", null);
-        return "admin/formAssegnaPresidente.html";
+        return "admin/formAssegnaSquadra.html";
     }
 
-    @PostMapping("/admin/assegnaPresidente")
+    @PostMapping("/admin/assegnaSquadra")
     public String assegnaPresidente(@RequestParam("id") String id, @RequestParam("codiceFiscale") String codiceFiscale, Model model) {
         if (codiceFiscale.trim().isEmpty() || id.trim().isEmpty()) {
             model.addAttribute("errore", "I due campi sono obbligatori!");
-            return "admin/formAssegnaPresidente.html";
+            return "admin/formAssegnaSquadra.html";
         }
         Squadra squadra = this.squadraService.findById(Long.valueOf(id));
         Presidente presidente = this.presidenteService.findByCodiceFiscale(codiceFiscale);
         squadra.setPresidente(presidente);
         this.squadraService.save(squadra);
         model.addAttribute("squadra", squadra);
-        return "admin/presidenteAssegnato.html";
+        return "admin/squadraAssegnata.html";
     }
 
-    @GetMapping("/admin/formCambiaPresidente")
+    @GetMapping("/admin/formCambiaSquadra")
     public String formCambiaPresidente(Model model) {
         model.addAttribute("squadre", this.squadraService.findSenzaPresidente());
         model.addAttribute("presidenti", this.presidenteService.findOccupati());
         model.addAttribute("errore", null);
-        return "admin/formCambiaPresidente.html";
+        return "admin/formCambiaSquadra.html";
     }
 
-    @PostMapping("/admin/cambiaPresidente")
+    @PostMapping("/admin/cambiaSquadra")
     public String cambiaPresidente(@RequestParam("id") String id, @RequestParam("codiceFiscale") String codiceFiscale, Model model) {
         if (codiceFiscale.trim().isEmpty()) {
             model.addAttribute("errore", "Presidente è un campo obbligatorio!");
-            return "admin/formCambiaPresidente.html";
+            return "admin/formCambiaSquadra.html";
         }
         Presidente presidente = this.presidenteService.findByCodiceFiscale(codiceFiscale);
         Squadra vecchia = this.squadraService.findByPresidente(presidente);
@@ -176,6 +176,6 @@ public class AdminController {
        }
         vecchia.setPresidente(null);
         this.squadraService.save(vecchia);
-       return "admin/presidenteAssegnato.html";
+       return "admin/squadraAssegnatA.html";
     }
 }

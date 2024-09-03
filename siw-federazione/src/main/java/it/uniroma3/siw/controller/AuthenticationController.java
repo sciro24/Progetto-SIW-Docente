@@ -67,12 +67,14 @@ public class AuthenticationController {
 				return "admin/indexAdmin.html";
 			}
 			if(credenziali.getRole().equals(PRESIDENT_ROLE)) {
-				Utente utente = this.utenteService.findByEmail(credenziali.getUsername());
+				Utente utente = this.utenteService.findByUsername(utenteDetails.getUsername());
 				Presidente presidente = this.presidenteService.findByUtente(utente);
 				Squadra squadra = this.squadraService.findByPresidente(presidente);
 				model.addAttribute("squadra", squadra);
 				model.addAttribute("presidente", presidente);
-				model.addAttribute("nome", squadra.getNome().toUpperCase());
+				if(squadra != null)
+					model.addAttribute("nome", squadra.getNome().toUpperCase());
+				
 				return "presidente/indexPresidente.html";
 			}
 		}
@@ -91,12 +93,13 @@ public class AuthenticationController {
 			return "admin/indexAdmin.html";
 		}
 		if(credenziali.getRole().equals(PRESIDENT_ROLE)) {
-			Utente utente = this.utenteService.findByEmail(credenziali.getUsername());
+			Utente utente = this.utenteService.findByUsername(utenteDetails.getUsername());
 			Presidente presidente = this.presidenteService.findByUtente(utente);
 			Squadra squadra = this.squadraService.findByPresidente(presidente);
 			model.addAttribute("squadra", squadra);
 			model.addAttribute("presidente", presidente);
-			model.addAttribute("nome", squadra.getNome().toUpperCase());
+			if(squadra != null)
+				model.addAttribute("nome", squadra.getNome().toUpperCase());
 			return "presidente/indexPresidente.html";
 		}
 		List<Squadra> squadre = this.squadraService.findAll();
