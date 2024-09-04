@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giocatori</title>
+    <link rel="stylesheet" href="/css/stile4.css" />
+    
+</head>
+<body>
+    <div class="container">
+
+		
+	<!-- PULSANTE LOGIN/LOGOUT -->
+	<header>
+		
+	<div th:if="${userDetails}">
+	   <span th:text="${userDetails.username}"></span>
+	   <a href="/logout">Logout</a>
+	</div>
+	<div sec:authorize="!isAuthenticated()">
+	   <a href="/login">Login</a>
+	</div>
+	
+	 <div style="text-align: center;">
+        <img src="/images/logo-siw.png" width="10%" alt="Logo SIW" />
+    </div>
+	</header>
+
+    <section>
+        <span th:if="${squadra}">
+            <button style="margin-bottom: 20px;">
+                <a th:href="'/squadra/'+${squadra.id}">
+                    INDIETRO
+                </a>
+            </button>
+            <h2>Giocatori della squadra: <span th:text="${squadra.nome}">squadra</span></h2>
+            <div id="flex-giocatori">
+                <div class="giocatori" th:each="giocatore : ${giocatori}">
+                    <a th:href="'/squadra/'+${squadra.id}+'/giocatori/'+${giocatore.id}">
+                        <h3>
+                            <span th:text="${giocatore.nome}">Nome</span>
+                            <span th:text="${giocatore.cognome}">Cognome</span>
+                        </h3>
+                        <p>
+                            <span th:text="${giocatore.ruolo}">Ruolo</span>
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </span>
+        <span th:unless="${squadra}">
+            <p class="error-message">La squadra non esiste!</p>
+            <button>
+                <a th:href="'/'">
+                    INDIETRO
+                </a>
+            </button>
+        </span>
+    </section>
+</body>
+</html>

@@ -57,7 +57,7 @@ public class UtenteController {
         model.addAttribute("squadra", squadra);
         List<Giocatore> giocatori = this.giocatoreService.findBySquadra(squadra);
         model.addAttribute("giocatori", giocatori);
-        return "risGiocatori.html";
+        return "giocatori.html";
     }
 
     @GetMapping("/squadra/{id}/giocatori/{id2}")

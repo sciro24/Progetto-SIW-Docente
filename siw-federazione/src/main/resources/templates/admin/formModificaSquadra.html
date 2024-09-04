@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+
+    <title>Nuova Squadra</title>
+     <link rel="stylesheet" href="/css/form1.css" />
+</head>
+<body>
+	<div class="container">
+
+	
+	
+	<div style="text-align: center;">
+    <img src="/images/logo-siw.png" width="10%" alt="Logo SIW" />
+</div>
+<h1>MODIFICA SQUADRA</h1>
+<section>
+    <form th:action="@{'/admin/squadra/update'}" method="post" th:object="${squadra}">
+        <p><sup>*</sup>: Campo obbligatorio</p>
+        
+        <p>
+            <label>Nome<sup>*</sup></label><br>
+            <input type="text" name="nome" th:field="*{nome}" required />
+            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color: red"></span>
+        </p>
+        
+        <p>
+            <label>Anno di fondazione<sup>*</sup></label><br>
+            <input type="text" name="annoFondazione" th:field="*{annoFondazione}" required />
+            <span th:if="${#fields.hasErrors('annoFondazione')}" th:errors="*{annoFondazione}" style="color: red"></span>
+        </p>
+        
+        <p>
+            <label>Indirizzo Sede<sup>*</sup></label><br>
+            <input type="text" name="indirizzoSede" th:field="*{indirizzoSede}" required />
+            <span th:if="${#fields.hasErrors('indirizzoSede')}" th:errors="*{indirizzoSede}" style="color: red"></span>
+        </p>
+        
+        <p>
+            <button type="button" onclick="location.href='/admin/gestisciSquadre'">INDIETRO</button>
+            <button type="submit">MODIFICA</button>
+        </p>
+
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p style="color: red">Errori nella modifica della squadra:</p>
+            <ul>
+                <li th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</li>
+            </ul>
+        </div>
+    </form>
+</section>
+
+
+</body>
+</html>
