@@ -71,11 +71,7 @@ public class PresidenteController {
         if (!this.controllaPresidente(squadra)) {
             return "presidente/permessoNegato.html";
         }
-        if(nome.trim().isEmpty() || cognome.trim().isEmpty() || ruolo.trim().isEmpty() || luogoNascita.trim().isEmpty() || dataNascita.trim().isEmpty() || inizio.trim().isEmpty() || fine.trim().isEmpty()) {
-            model.addAttribute("squadra", squadra);
-            model.addAttribute("errore", "Non hai inserito tutti i campi!");
-            return "presidente/giocatoreNonInserito.html";
-        }
+        
         Giocatore giocatore = new Giocatore();
         giocatore.setNome(nome);
         giocatore.setCognome(cognome);
@@ -94,7 +90,7 @@ public class PresidenteController {
             giocatore = this.giocatoreService.findByNomeAndCognomeAndDataNascitaAndLuogoNascita(nome, cognome, nascita, luogoNascita);
             if (!this.tesseramentoService.checkTesseramenti(dataInizio, dataFine, giocatore.getId())) {
                 model.addAttribute("squadra", squadra);
-                model.addAttribute("errore", "Il giocatore e' gia' tesserato nel periodo selezionato!");
+                model.addAttribute("errore", "Il giocatore e' gia' tesserato!");
                 return "presidente/giocatoreNonInserito.html";
             }
         } else {
@@ -129,10 +125,6 @@ public class PresidenteController {
         model.addAttribute("squadra", squadra);
         if (!this.controllaPresidente(squadra)) {
             return "presidente/permessoNegato.html";
-        }
-        if (giocatore.getId() == null) {
-            model.addAttribute("errore", "Giocatore è un campo obbligatorio!");
-            return "presidente/giocatoreNonEsonerato.html";
         }
         Tesseramento trovato = this.tesseramentoService.findTesseramentoGiusto(squadra, giocatore);
         trovato.setDataFine(LocalDate.now());

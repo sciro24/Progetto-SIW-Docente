@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestione della Squadra</title>
-    <style>
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -65,20 +60,3 @@
         .back-button a:hover {
             background-color: #555;
         }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <h2>Gestione della Squadra: <span th:text="${squadra.nome}"></span></h2>
-        <div class="actions">
-            <a class="action-item" th:href="@{'/presidente/'+${squadra.id}+'/formAggiungiGiocatore'}">Aggiungi Giocatore</a>
-            <a class="action-item" th:href="@{'/presidente/'+${squadra.id}+'/formRimuoviGiocatore'}">Rimuovi Giocatore</a>
-        </div>
-        <div class="back-button">
-            <a href="/">INDIETRO</a>
-        </div>
-    </div>
-</body>
-
-</html>
