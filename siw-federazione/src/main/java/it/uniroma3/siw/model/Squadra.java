@@ -1,7 +1,6 @@
 package it.uniroma3.siw.model;
 
 
-import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
@@ -10,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
@@ -38,8 +36,6 @@ public class Squadra {
     @JoinColumn(name = "presidente_id", referencedColumnName = "id")
     private Presidente presidente;
 
-    @OneToMany(mappedBy = "squadra", cascade = CascadeType.ALL)
-    private List<Giocatore> giocatori;
 
 	public Long getId() {
 		return id;
@@ -81,13 +77,6 @@ public class Squadra {
 		this.presidente = presidente;
 	}
 
-	public List<Giocatore> getGiocatori() {
-		return giocatori;
-	}
-
-	public void setGiocatori(List<Giocatore> giocatori) {
-		this.giocatori = giocatori;
-	}
 
 	@Override
 	public int hashCode() {

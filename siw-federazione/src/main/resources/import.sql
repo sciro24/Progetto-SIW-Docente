@@ -26,3 +26,14 @@ insert into presidente(id, codice_fiscale, luogo_nascita, utente_id) values (nex
 insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1927 ' , 'Via Uffici del Vicario' , 'ASRoma' , 1);
 insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1907 ' , 'Via Fiume Giallo' , 'Alba' , 2);
 insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1907 ' , 'Via Oceano Atlantico' , 'Fortitudo' , NULL);
+
+
+-- Inserimento Giocatore
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, ruolo) values (nextval('giocatore_seq') , 'Totti', '2000-02-02', 'Roma', 'Francesco' , 'Attaccante' );
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, ruolo) values (nextval('giocatore_seq') , 'Strefezza', '1990-02-02', 'Napoli', 'Enrico' , 'Portiere');
+
+-- Inserimento Tesseramento
+insert into tesseramento(id, data_fine, data_inizio, giocatore_id, squadra_id) values (nextval('tesseramento_seq'), '2030-12-12', '2000-12-12', 1, 1)
+insert into tesseramento(id, data_fine, data_inizio, giocatore_id, squadra_id) values (nextval('tesseramento_seq'), '2023-12-12', '2000-12-12', 2, 1)
+
+

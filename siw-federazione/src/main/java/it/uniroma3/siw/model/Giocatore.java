@@ -8,8 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,14 +35,6 @@ public class Giocatore {
     @NotBlank
     private String ruolo;
 
-    @NotNull
-    private LocalDate dataInizioTesseramento;
-
-    private LocalDate dataFineTesseramento;
-
-    @ManyToOne
-    @JoinColumn(name = "squadra_id")
-    private Squadra squadra;
 
 	public Long getId() {
 		return id;
@@ -94,29 +84,6 @@ public class Giocatore {
 		this.ruolo = ruolo;
 	}
 
-	public LocalDate getDataInizioTesseramento() {
-		return dataInizioTesseramento;
-	}
-
-	public void setDataInizioTesseramento(LocalDate dataInizioTesseramento) {
-		this.dataInizioTesseramento = dataInizioTesseramento;
-	}
-
-	public LocalDate getDataFineTesseramento() {
-		return dataFineTesseramento;
-	}
-
-	public void setDataFineTesseramento(LocalDate dataFineTesseramento) {
-		this.dataFineTesseramento = dataFineTesseramento;
-	}
-
-	public Squadra getSquadra() {
-		return squadra;
-	}
-
-	public void setSquadra(Squadra squadra) {
-		this.squadra = squadra;
-	}
 
 	@Override
 	public int hashCode() {
@@ -133,7 +100,7 @@ public class Giocatore {
 			return false;
 		Giocatore other = (Giocatore) obj;
 		return Objects.equals(cognome, other.cognome) && Objects.equals(id, other.id)
-				&& Objects.equals(ruolo, other.ruolo) && Objects.equals(squadra, other.squadra);
+				&& Objects.equals(ruolo, other.ruolo);
 	}
 	
 	

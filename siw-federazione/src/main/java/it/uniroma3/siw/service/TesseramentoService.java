@@ -1,8 +1,8 @@
 package it.uniroma3.siw.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,71 +11,61 @@ import it.uniroma3.siw.model.Giocatore;
 import it.uniroma3.siw.model.Squadra;
 import it.uniroma3.siw.model.Tesseramento;
 import it.uniroma3.siw.repository.TesseramentoRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
-import jakarta.transaction.Transactional;
 
 @Service
 public class TesseramentoService {
 
-    @Autowired TesseramentoRepository tesseramentoRepository;
-    @Autowired EntityManager entityManager;
+    @Autowired
+    private TesseramentoRepository tesseramentoRepository;
 
-    private List<LocalDate> generaDate(LocalDate inizio, LocalDate fine) {
-        List<LocalDate> out = new ArrayList<>();
-        LocalDate ind = inizio;
-        while (!(ind.equals(fine))) {
-            ind = ind.plusDays(1);
-        }
-        return out;
-    }
-
-    @Transactional
+    // Salva un nuovo tesseramento solo se non esiste un altro tesseramento attivo per lo stesso giocatore
     public Tesseramento save(Tesseramento tesseramento) {
-        return this.tesseramentoRepository.save(tesseramento);
+        // Verifica se esiste già un tesseramento attivo per lo stesso giocatore in un altro periodo
+        List<Tesseramento> tesseramentiEsistenti = tesseramentoRepository.findByGiocatore(tesseramento.getGiocatore());
+        
+        for (Tesseramento esistente : tesseramentiEsistenti) {
+            // Controlliamo se le date del nuovo tesseramento si sovrappongono con quelle di uno esistente
+            if (dateOverlap(tesseramento.getDataInizio(), tesseramento.getDataFine(), esistente.getDataInizio(), esistente.getDataFine())) {
+                throw new IllegalArgumentException("Il giocatore è già tesserato in questo periodo con un'altra squadra.");
+            }
+        }
+
+        // Se non ci sono sovrapposizioni di date, salviamo il tesseramento
+        return tesseramentoRepository.save(tesseramento);
     }
 
-    public boolean checkTesseramenti(LocalDate inizio, LocalDate fine, Long id) {
-        StringBuilder  select = new StringBuilder();
-        select.append("select g.id from tesseramento t join giocatore g on g.id = t.giocatore_id where g.id = ");
-        select.append(id);
-        select.append(" and ('");
-        select.append(inizio);
-        select.append("' between data_inizio and data_fine or '");
-        select.append(fine);
-        select.append("' between data_inizio and data_fine)");
-        Query query = this.entityManager.createNativeQuery(select.toString());
-        List<Object> ris = (List<Object>) query.getResultList();
-        return ris.isEmpty();
+    // Verifica se due intervalli di date si sovrappongono
+    public boolean dateOverlap(LocalDate newStart, LocalDate newEnd, LocalDate existingStart, LocalDate existingEnd) {
+        return !(newEnd.isBefore(existingStart) || newStart.isAfter(existingEnd));
     }
 
-    public List<Tesseramento> findByGiocatore(Giocatore giocatore) {
-        return this.tesseramentoRepository.findByGiocatore(giocatore);
+    // Trova il tesseramento di un giocatore (versione aggiornata)
+    public Optional<Tesseramento> getTesseramentoByGiocatore(Giocatore giocatore) {
+        List<Tesseramento> tesseramenti = tesseramentoRepository.findByGiocatore(giocatore);
+        if (!tesseramenti.isEmpty()) {
+            return Optional.of(tesseramenti.get(0));
+        } else {
+            return Optional.empty();
+        }
     }
 
-    public List<Tesseramento> findBySquadra(Squadra squadra) {
-        return this.tesseramentoRepository.findBySquadra(squadra);
+    // Trova il tesseramento per una squadra (versione aggiornata)
+    public Optional<Tesseramento> getTesseramentoBySquadra(Squadra squadra) {
+        List<Tesseramento> tesseramenti = tesseramentoRepository.findBySquadra(squadra);
+        if (!tesseramenti.isEmpty()) {
+            return Optional.of(tesseramenti.get(0));
+        } else {
+            return Optional.empty();
+        }
     }
 
-    public Tesseramento findTesseramentoGiusto(Squadra squadra, Giocatore giocatore) {
-        StringBuilder select = new StringBuilder();
-
-        select.append("select t.id, to_char(t.data_inizio, 'yyyy-mm-dd'), to_char(t.data_fine, 'yyyy-mm-dd') from tesseramento t ");
-        select.append("join squadra s on s.id = t.squadra_id join giocatore g on g.id = t.giocatore_id ");
-        select.append("where (g.id = ");
-        select.append(giocatore.getId());
-        select.append(" and s.id = ");
-        select.append(squadra.getId());
-        select.append(") and now() between data_inizio and data_fine order by t.data_inizio, t.data_fine limit 1");
-        Query query = this.entityManager.createNativeQuery(select.toString());
-        Object[] ris = (Object[]) query.getResultList().get(0);
-        Tesseramento out = new Tesseramento();
-        out.setId((Long) ris[0]);
-        out.setDataInizio(LocalDate.parse((String) ris[1]));
-        out.setDataFine(LocalDate.parse((String) ris[2]));
-        out.setSquadra(squadra);
-        out.setGiocatore(giocatore);
-        return out;
+    // Trova un tesseramento per ID
+    public Optional<Tesseramento> getTesseramentoById(Long id) {
+        return tesseramentoRepository.findById(id);
     }
 
+    // Cancella un tesseramento per ID
+    public void deleteTesseramento(Long id) {
+        tesseramentoRepository.deleteById(id);
+    }
 }

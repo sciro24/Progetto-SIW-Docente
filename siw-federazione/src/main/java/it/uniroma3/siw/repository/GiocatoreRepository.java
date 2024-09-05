@@ -1,6 +1,7 @@
 package it.uniroma3.siw.repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -11,9 +12,11 @@ public interface GiocatoreRepository extends CrudRepository<Giocatore, Long> {
 
     public Giocatore save(Giocatore giocatore);
 
-    public boolean existsByNomeAndCognomeAndDataNascitaAndLuogoNascita(String nome, String cognome, LocalDate dataNAscita, String luogoNascita);
+    public boolean existsByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita);
 
-    public Giocatore findByNomeAndCognomeAndDataNascitaAndLuogoNascita(String nome, String cognome, LocalDate dataNAscita, String luogoNascita);
+    public Giocatore findByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita);
 
     public Optional<Giocatore> findById(Long id);
+
+    public List<Giocatore> findAll();
 }

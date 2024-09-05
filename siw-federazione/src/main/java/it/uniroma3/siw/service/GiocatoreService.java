@@ -25,26 +25,64 @@ public class GiocatoreService {
         return this.giocatoreRepository.save(giocatore);
     }
 
-    public boolean existsByNomeAndCognomeAndDataNascitaAndLuogoNascita(String nome, String cognome, LocalDate dataNAscita, String luogoNascita) {
-        return this.giocatoreRepository.existsByNomeAndCognomeAndDataNascitaAndLuogoNascita(nome, cognome, dataNAscita, luogoNascita);
+    public boolean existsByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita) {
+        return this.giocatoreRepository.existsByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita);
+    }
+    
+    public boolean isTesserato(Giocatore giocatore, Squadra squadra) {
+    	
+    	if (giocatore == null || squadra == null) {
+    		return false;
+    	}
+    	
+    	LocalDate oggi = LocalDate.now();
+    	Tesseramento tesseramento = this.tesseramentoService.getTesseramentoByGiocatore(giocatore).get();
+    	
+ 
+    	if (tesseramento == null) {
+    		return false;
+    	}
+    	
+    	
+    	if (tesseramento.getSquadra().equals(squadra) && tesseramento.getDataInizio().isBefore(oggi) && tesseramento.getDataFine().isAfter(oggi)) {
+    		return true;
+    	}
+    	
+    	return false;
+    	
     }
 
-    public List<Giocatore> findBySquadra(Squadra squadra) {
-        List<Tesseramento> tesseramenti = this.tesseramentoService.findBySquadra(squadra);
-        List<Giocatore> ris = new ArrayList<>();
-        for (Tesseramento tesseramento : tesseramenti) {
-            ris.add(tesseramento.getGiocatore());
-        }
-        return ris;
+    public List<Giocatore> findAll() {
+    	return this.giocatoreRepository.findAll();
     }
+    
+    public List<Giocatore> findBySquadra(Squadra squadra) {
+        // Inizializza una lista vuota per i giocatori
+        List<Giocatore> lista = new ArrayList<>();
+        List<Giocatore> tutti = this.findAll();
+       
+        
+        // Se il tesseramento esiste, aggiungi il giocatore alla lista
+        for (Giocatore giocatore : tutti) {
+        	if (this.isTesserato(giocatore, squadra)) {
+        		lista.add(giocatore);
+        	} 
+        }
+        
+        // Restituisci la lista (vuota se non c'è nessun tesseramento)
+        return lista;
+    }
+    
+    
+
 
  
     public Giocatore findById(Long id) {
         Optional<Giocatore> giocatore = this.giocatoreRepository.findById(id);
         return giocatore.orElse(null);
     }
-    public Giocatore findByNomeAndCognomeAndDataNascitaAndLuogoNascita(String nome, String cognome, LocalDate dataNAscita, String luogoNascita) {
-        return this.giocatoreRepository.findByNomeAndCognomeAndDataNascitaAndLuogoNascita(nome, cognome, dataNAscita, luogoNascita);
+    public Giocatore findByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita) {
+        return this.giocatoreRepository.findByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita);
     }
 
 }

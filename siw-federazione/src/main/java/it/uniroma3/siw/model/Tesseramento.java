@@ -20,8 +20,8 @@ import jakarta.persistence.UniqueConstraint;
 public class Tesseramento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tesseramento_generator")
+    @SequenceGenerator(name = "tesseramento_generator", sequenceName = "tesseramento_seq", allocationSize = 1)
     public Long id;
 
     @Column(nullable = false)

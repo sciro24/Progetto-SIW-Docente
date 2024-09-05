@@ -1,6 +1,8 @@
 package it.uniroma3.siw.controller;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -65,8 +67,10 @@ public class PresidenteController {
         return "presidente/formAggiungiGiocatore.html";
     }
 
+    
+    
     @PostMapping("/presidente/{id}/giocatore")
-    public String newGiocatore(@PathVariable("id")Long id, @RequestParam("nome") String nome, @RequestParam("cognome") String cognome, @RequestParam("dataNascita") String dataNascita, @RequestParam("luogoNascita") String luogoNascita, @RequestParam("ruolo") String ruolo, @RequestParam("dataInizio") String inizio, @RequestParam("dataFine") String fine, Model model)  {
+    public String newGiocatore(@PathVariable("id")Long id, @RequestParam("nome") String nome, @RequestParam("cognome") String cognome, @RequestParam("dataNascita") LocalDate dataNascita, @RequestParam("luogoNascita") String luogoNascita, @RequestParam("ruolo") String ruolo, @RequestParam("dataInizio") String inizio, @RequestParam("dataFine") String fine, Model model)  {
         Squadra squadra = this.squadraService.findById(id);
         if (!this.controllaPresidente(squadra)) {
             return "presidente/permessoNegato.html";
@@ -75,8 +79,8 @@ public class PresidenteController {
         Giocatore giocatore = new Giocatore();
         giocatore.setNome(nome);
         giocatore.setCognome(cognome);
-        LocalDate nascita = LocalDate.parse(dataNascita);
-        giocatore.setDataNascita(nascita);
+        //LocalDate nascita = giocatore.getDataNascita();
+        giocatore.setDataNascita(dataNascita);
         giocatore.setLuogoNascita(luogoNascita);
         giocatore.setRuolo(ruolo);
         LocalDate dataInizio = LocalDate.parse(inizio);
@@ -86,22 +90,33 @@ public class PresidenteController {
             dataInizio = dataFine;
             dataFine = temp;
         }
-        if (this.giocatoreService.existsByNomeAndCognomeAndDataNascitaAndLuogoNascita(nome, cognome, nascita, luogoNascita)) {
-            giocatore = this.giocatoreService.findByNomeAndCognomeAndDataNascitaAndLuogoNascita(nome, cognome, nascita, luogoNascita);
-            if (!this.tesseramentoService.checkTesseramenti(dataInizio, dataFine, giocatore.getId())) {
-                model.addAttribute("squadra", squadra);
-                model.addAttribute("errore", "Il giocatore e' gia' tesserato!");
-                return "presidente/giocatoreNonInserito.html";
+     // Verifica se il giocatore esiste già
+        if (this.giocatoreService.existsByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita)) {
+            // Trova il giocatore esistente
+            giocatore = this.giocatoreService.findByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita);
+
+            // Trova il tesseramento del giocatore, se esiste
+            Optional<Tesseramento> tesseramentoOptional = this.tesseramentoService.getTesseramentoByGiocatore(giocatore);
+
+            // Se esiste un tesseramento, controlla se si sovrappone con il periodo specificato
+            if (tesseramentoOptional.isPresent()) {
+                Tesseramento tesseramento = tesseramentoOptional.get();
+                if (tesseramentoService.dateOverlap(dataInizio, dataFine, tesseramento.getDataInizio(), tesseramento.getDataFine())) {
+                    // Se c'è sovrapposizione, mostra un messaggio di errore
+                    model.addAttribute("squadra", squadra);
+                    model.addAttribute("errore", "Il giocatore è già tesserato!");
+                    return "presidente/giocatoreNonInserito.html";
+                }
             }
         } else {
-            model.addAttribute("giocatore", giocatore);
+        	model.addAttribute("giocatore", giocatore);
+            this.giocatoreService.save(giocatore);
             model.addAttribute("squadra", squadra);
         }
         Tesseramento nuovo = new Tesseramento();
         nuovo.setSquadra(squadra);
         nuovo.setDataInizio(dataInizio);
         nuovo.setDataFine(dataFine);
-        this.giocatoreService.save(giocatore);
         nuovo.setGiocatore(giocatore);
         this.tesseramentoService.save(nuovo);
         model.addAttribute("tesseramento", nuovo);
@@ -115,20 +130,29 @@ public class PresidenteController {
         if (!this.controllaPresidente(squadra)) {
             return "presidente/permessoNegato.html";
         }
-        model.addAttribute("giocatori", this.giocatoreService.findBySquadra(squadra));
+        List<Giocatore> giocatori = this.giocatoreService.findBySquadra(squadra);
+        model.addAttribute("giocatori", giocatori);
         return "presidente/formRimuoviGiocatore.html";
     }
 
     @PostMapping("/presidente/{id}/rimuovi")
-    public String rimuoviGiocatore(@PathVariable("id")Long id, @ModelAttribute("giocatore") Giocatore giocatore, Model model) {
+    public String rimuoviGiocatore(@PathVariable("id") Long id, @ModelAttribute("giocatore") Giocatore giocatore, Model model) {
+        // Trova la squadra tramite l'ID
         Squadra squadra = this.squadraService.findById(id);
         model.addAttribute("squadra", squadra);
+
+        // Controlla se l'utente ha i permessi necessari
         if (!this.controllaPresidente(squadra)) {
             return "presidente/permessoNegato.html";
         }
-        Tesseramento trovato = this.tesseramentoService.findTesseramentoGiusto(squadra, giocatore);
-        trovato.setDataFine(LocalDate.now());
-        this.tesseramentoService.save(trovato);
+        //model.addAttribute("giocatore", giocatore);
+        Tesseramento tesseramento = this.tesseramentoService.getTesseramentoByGiocatore(giocatore).get();
+        tesseramento.setDataFine(LocalDate.now());
+        this.tesseramentoService.save(tesseramento);
+        this.giocatoreService.save(giocatore);
+        this.squadraService.save(squadra);
+        
         return "presidente/giocatoreRimosso.html";
     }
+
 }
