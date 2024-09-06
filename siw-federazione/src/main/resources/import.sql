@@ -29,8 +29,8 @@ insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) va
 
 
 -- Inserimento Giocatore
-insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, ruolo) values (nextval('giocatore_seq') , 'Totti', '2000-02-02', 'Roma', 'Francesco' , 'Attaccante' );
-insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, ruolo) values (nextval('giocatore_seq') , 'Strefezza', '1990-02-02', 'Napoli', 'Enrico' , 'Portiere');
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, ruolo) values (nextval('giocatore_seq') , 'Totti', '2000-02-02', 'Roma', 'Francesco' , 'ATT' );
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, ruolo) values (nextval('giocatore_seq') , 'Strefezza', '1990-02-02', 'Napoli', 'Enrico' , 'POR');
 
 -- Inserimento Tesseramento
 insert into tesseramento(id, data_fine, data_inizio, giocatore_id, squadra_id) values (nextval('tesseramento_seq'), '2030-12-12', '2000-12-12', 1, 1)

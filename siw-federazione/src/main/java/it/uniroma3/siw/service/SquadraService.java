@@ -18,7 +18,6 @@ import jakarta.persistence.EntityManager;
 public class SquadraService {
 
     @Autowired SquadraRepository squadraRepository;
-    //@Autowired PresidenteService presidenteService;
     @Autowired EntityManager entityManager;
 
     @Transactional
@@ -44,13 +43,13 @@ public class SquadraService {
 
     public List<Squadra> findSenzaPresidente() {
         List<Squadra> tutte = this.findAll();
-        List<Squadra> out = new ArrayList<>();
+        List<Squadra> senza = new ArrayList<>();
 
         for (Squadra squadra : tutte) {
             if (squadra.getPresidente() == null){
-                out.add(squadra);
+                senza.add(squadra);
             }
         }
-        return out;
+        return senza;
     }
 }
