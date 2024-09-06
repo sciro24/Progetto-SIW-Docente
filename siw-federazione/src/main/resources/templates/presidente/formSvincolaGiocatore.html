@@ -1,58 +1,30 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <title>Svincola Giocatore</title>
-	<link rel="stylesheet" href="/css/form1.css" />
-
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
-
 <body>
-	<div class="container">
+    <div class="container">
+        <header>
+            <h1>Svincola Giocatore</h1>
+        </header>
 
-	
-	
-	<div><img src="/images/logo-siw.png" width="10%" /></div>
-	   <section>
-        <h2>Svincola un giocatore dalla squadra <span th:text="${squadra.nome}"></span></h2>
-        <form th:action="@{'/presidente/'+${squadra.id}+'/rimuovi'}" method="post">
-            <p><sup>*</sup>: Campo obbligatorio</p>
-            <p>
-                <label>Giocatore<sup>*</sup></label><br>
-                <select name="id">
-                    <option value=""></option>
-                    <span th:each="tesseramento : ${tesseramenti}">
-                        <option th:value="*{tesseramento.id}">
-                            <span th:text="*{tesseramento.giocatore.nome}">
-                                Nome
-                            </span>
-                             <span th:text="*{tesseramento.giocatore.cognome}">
-                                Cognome
-                            </span>
-                             <span th:text="*{#temporals.format(tesseramento.giocatore.dataNascita, 'dd-MM-yyyy')}">
-                                Data
-                            </span>
-                            <span th:text="*{tesseramento.giocatore.luogoNascita}">
-                                Luogo
-                            </span>
-                            <span th:text="*{tesseramento.dataInizio}">
-                                data
-                            </span>
-                            <span th:text="*{tesseramento.dataFine}">
-                                data
-                            </span>
-                        </option>
-                    </span>
+        <section>
+            <form th:action="@{'/presidente/'+${squadra.id}+'/svincolaGiocatore'}" method="post">
+                <label for="giocatore">Seleziona Giocatore:</label>
+                <select id="giocatore" name="giocatoreId" required>
+                    <option value="" disabled selected>-- Seleziona un giocatore --</option>
+                    <option th:each="giocatore : ${giocatori}" 
+                            th:value="${giocatore.id}" 
+                            th:text="${giocatore.nome + ' ' + giocatore.cognome}"></option>
                 </select>
-            </p>
-            <p>
-                <button>
-                    <a th:href="'/presidente/'+${squadra.id}+'/gestisciSquadra'">
-                        INDIETRO
-                    </a>
-                </button>
-                <button type="submit">SVINCOLA</button>
-            </p>
-        </form>
-    </section>
+
+                <input type="hidden" name="squadraId" th:value="${squadra.id}" />
+
+                <button type="submit">Svincola Giocatore</button>
+            </form>
+        </section>
+    </div>
 </body>
 </html>

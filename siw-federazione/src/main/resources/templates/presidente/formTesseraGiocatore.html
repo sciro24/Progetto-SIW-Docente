@@ -14,32 +14,25 @@
         <img src="/images/logo-siw.png" alt="Logo SIW" width="30%">
         <h2>Tessera un giocatore alla squadra <span th:text="${squadra.nome}"></span></h2>
         <section>
-            <form th:action="@{/admin/assegnaSquadra}" method="post">
-            <p><sup>*</sup>: Campo obbligatorio</p>
-            <p>
-                <label>Giocatore<sup>*</sup></label><br>
-                <select name="id">
-                    <option value=""> </option>
-                    <span th:each="giocatore : ${giocatori}">
-                                <option th:value="*{giocatore.id}">
-                                    <span th:text="*{giocatore.nome}">nome</span>
-                                    <span th:text="*{giocatore.cognome}">cognome</span>
-                                    <span th:text="*{giocatore.ruolo}">fiscale</span>
-                                </option>
-                    </span>
-            </select>
-            </p>
-           
-            <span th:if="${errore}">
-                <span th:text="${errore}"></span>
-            </span>
-            <p>
-                <button>
-                    <a href="/">INDIETRO</a>
-                </button>
-                <button type="submit">TESSERA</button>
-            </p>
-        </form>
+             <form th:action="@{'/presidente/'+${squadra.id}+'/tesseraGiocatore'}" method="post">
+                <label for="giocatore">Seleziona Giocatore:</label>
+                <select id="giocatore" name="giocatoreId" required>
+                    <option value="" disabled selected>-- Seleziona un giocatore --</option>
+                    <option th:each="giocatore : ${giocatori}" 
+                            th:value="${giocatore.id}" 
+                            th:text="${giocatore.nome + ' ' + giocatore.cognome}"></option>
+                </select>
+
+                <label for="dataInizio">Data di Inizio:</label>
+                <input type="date" id="dataInizio" name="dataInizio" required />
+
+                <label for="dataFine">Data di Fine:</label>
+                <input type="date" id="dataFine" name="dataFine" required />
+
+                <input type="hidden" name="squadraId" th:value="${squadra.id}" />
+
+                <button type="submit">Tesserare Giocatore</button>
+            </form>
         </section>
     </div>
 </body>

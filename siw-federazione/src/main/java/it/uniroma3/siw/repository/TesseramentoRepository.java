@@ -1,6 +1,7 @@
 package it.uniroma3.siw.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,7 +13,7 @@ public interface TesseramentoRepository extends CrudRepository<Tesseramento, Lon
 
     public Tesseramento save(Tesseramento tesseramento);
 
-    public List<Tesseramento> findByGiocatore(Giocatore giocatore);
-
+    Optional<Tesseramento> findByGiocatore(Giocatore giocatore);
+    
     public List<Tesseramento> findBySquadra(Squadra squadra);
 }
