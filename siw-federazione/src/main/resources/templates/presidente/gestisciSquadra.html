@@ -72,8 +72,8 @@
     <div class="container">
         <h2>Gestione della Squadra: <span th:text="${squadra.nome}"></span></h2>
         <div class="actions">
-            <a class="action-item" th:href="@{'/presidente/'+${squadra.id}+'/formAggiungiGiocatore'}">Aggiungi Giocatore</a>
-            <a class="action-item" th:href="@{'/presidente/'+${squadra.id}+'/formRimuoviGiocatore'}">Rimuovi Giocatore</a>
+            <a class="action-item" th:href="@{'/presidente/'+${squadra.id}+'/formTesseraGiocatore'}">Tessera Giocatore</a>
+            <a class="action-item" th:href="@{'/presidente/'+${squadra.id}+'/formSvincolaGiocatore'}">Svincola Giocatore</a>
         </div>
         <div class="back-button">
             <a href="/">INDIETRO</a>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tessera Giocatore</title>
+    <link rel="stylesheet" href="/css/form1.css" />
+
+</head>
+
+<body>
+    <div class="container">
+        <img src="/images/logo-siw.png" alt="Logo SIW" width="30%">
+        <h2>Tessera un giocatore alla squadra <span th:text="${squadra.nome}"></span></h2>
+        <section>
+            <form th:action="@{/admin/assegnaSquadra}" method="post">
+            <p><sup>*</sup>: Campo obbligatorio</p>
+            <p>
+                <label>Giocatore<sup>*</sup></label><br>
+                <select name="id">
+                    <option value=""> </option>
+                    <span th:each="giocatore : ${giocatori}">
+                                <option th:value="*{giocatore.id}">
+                                    <span th:text="*{giocatore.nome}">nome</span>
+                                    <span th:text="*{giocatore.cognome}">cognome</span>
+                                    <span th:text="*{giocatore.ruolo}">fiscale</span>
+                                </option>
+                    </span>
+            </select>
+            </p>
+           
+            <span th:if="${errore}">
+                <span th:text="${errore}"></span>
+            </span>
+            <p>
+                <button>
+                    <a href="/">INDIETRO</a>
+                </button>
+                <button type="submit">TESSERA</button>
+            </p>
+        </form>
+        </section>
+    </div>
+</body>
+
+</html>

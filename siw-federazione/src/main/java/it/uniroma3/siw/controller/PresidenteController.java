@@ -2,7 +2,6 @@ package it.uniroma3.siw.controller;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,100 +51,63 @@ public class PresidenteController {
         Squadra squadra = this.squadraService.findById(id);
         model.addAttribute("squadra", squadra);
         if (!this.controllaPresidente(squadra)) {
-            return "presidente/permessoNegato.html";
+            return "presidente/accessoNegato.html";
         }
         return "presidente/gestisciSquadra.html";
     }
 
-    @GetMapping("/presidente/{id}/formAggiungiGiocatore")
-    public String formNewGiocatore(@PathVariable("id")Long id, Model model)  {
+    @GetMapping("/presidente/{id}/formTesseraGiocatore")
+    public String formTesseraGiocatore(@PathVariable("id")Long id, Model model)  {
         Squadra squadra = this.squadraService.findById(id);
         model.addAttribute("squadra", squadra);
         if (!this.controllaPresidente(squadra)) {
-            return "presidente/permessoNegato.html";
+            return "presidente/accessoNegato.html";
         }
-        return "presidente/formAggiungiGiocatore.html";
+        return "presidente/formTesseraGiocatore.html";
     }
 
     
     
     @PostMapping("/presidente/{id}/giocatore")
-    public String newGiocatore(@PathVariable("id")Long id, @RequestParam("nome") String nome, @RequestParam("cognome") String cognome, @RequestParam("dataNascita") LocalDate dataNascita, @RequestParam("luogoNascita") String luogoNascita, @RequestParam("ruolo") String ruolo, @RequestParam("dataInizio") String inizio, @RequestParam("dataFine") String fine, Model model)  {
+    public String tesseraGiocatore(@PathVariable("id")Long id, @RequestParam("nome") String nome, @RequestParam("cognome") String cognome, @RequestParam("dataNascita") LocalDate dataNascita, @RequestParam("luogoNascita") String luogoNascita, @RequestParam("ruolo") String ruolo, @RequestParam("dataInizio") String inizio, @RequestParam("dataFine") String fine, Model model)  {
         Squadra squadra = this.squadraService.findById(id);
         if (!this.controllaPresidente(squadra)) {
-            return "presidente/permessoNegato.html";
+            return "presidente/accessoNegato.html";
         }
         
-        Giocatore giocatore = new Giocatore();
-        giocatore.setNome(nome);
-        giocatore.setCognome(cognome);
-        //LocalDate nascita = giocatore.getDataNascita();
-        giocatore.setDataNascita(dataNascita);
-        giocatore.setLuogoNascita(luogoNascita);
-        giocatore.setRuolo(ruolo);
-        LocalDate dataInizio = LocalDate.parse(inizio);
-        LocalDate dataFine = LocalDate.parse(fine);
-        if (dataInizio.isAfter(dataFine)) {
-            LocalDate temp = dataInizio;
-            dataInizio = dataFine;
-            dataFine = temp;
-        }
-     // Verifica se il giocatore esiste già
-        if (this.giocatoreService.existsByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita)) {
-            // Trova il giocatore esistente
-            giocatore = this.giocatoreService.findByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita);
-
-            // Trova il tesseramento del giocatore, se esiste
-            Optional<Tesseramento> tesseramentoOptional = this.tesseramentoService.getTesseramentoByGiocatore(giocatore);
-
-            // Se esiste un tesseramento, controlla se si sovrappone con il periodo specificato
-            if (tesseramentoOptional.isPresent()) {
-                Tesseramento tesseramento = tesseramentoOptional.get();
-                if (tesseramentoService.dateOverlap(dataInizio, dataFine, tesseramento.getDataInizio(), tesseramento.getDataFine())) {
-                    // Se c'è sovrapposizione, mostra un messaggio di errore
-                    model.addAttribute("squadra", squadra);
-                    model.addAttribute("errore", "Il giocatore è già tesserato!");
-                    return "presidente/giocatoreNonInserito.html";
-                }
-            }
-        } else {
-        	model.addAttribute("giocatore", giocatore);
-            this.giocatoreService.save(giocatore);
-            model.addAttribute("squadra", squadra);
-        }
+        
+        ///DA SISTEMARE
+      
         Tesseramento nuovo = new Tesseramento();
         nuovo.setSquadra(squadra);
-        nuovo.setDataInizio(dataInizio);
-        nuovo.setDataFine(dataFine);
-        nuovo.setGiocatore(giocatore);
         this.tesseramentoService.save(nuovo);
         model.addAttribute("tesseramento", nuovo);
-        return "presidente/giocatoreAggiunto.html";
+        return "presidente/giocatoreTesserato.html";
     }
 
-    @GetMapping("/presidente/{id}/formRimuoviGiocatore")
-    public String formRimuoviGiocatore(@PathVariable("id")Long id, Model model)  {
+    @GetMapping("/presidente/{id}/formSvincolaGiocatore")
+    public String formSvincolaGiocatore(@PathVariable("id")Long id, Model model)  {
         Squadra squadra = this.squadraService.findById(id);
         model.addAttribute("squadra", squadra);
         if (!this.controllaPresidente(squadra)) {
-            return "presidente/permessoNegato.html";
+            return "presidente/accessoNegato.html";
         }
         List<Giocatore> giocatori = this.giocatoreService.findBySquadra(squadra);
         model.addAttribute("giocatori", giocatori);
-        return "presidente/formRimuoviGiocatore.html";
+        return "presidente/formSvincolaGiocatore.html";
     }
 
-    @PostMapping("/presidente/{id}/rimuovi")
-    public String rimuoviGiocatore(@PathVariable("id") Long id, @ModelAttribute("giocatore") Giocatore giocatore, Model model) {
+    @PostMapping("/presidente/{id}/svincola")
+    public String svincolaGiocatore(@PathVariable("id") Long id, @ModelAttribute("giocatore") Giocatore giocatore, Model model) {
         // Trova la squadra tramite l'ID
         Squadra squadra = this.squadraService.findById(id);
         model.addAttribute("squadra", squadra);
 
         // Controlla se l'utente ha i permessi necessari
         if (!this.controllaPresidente(squadra)) {
-            return "presidente/permessoNegato.html";
+            return "presidente/accessoNegato.html";
         }
-        //model.addAttribute("giocatore", giocatore);
+        
         Tesseramento tesseramento = this.tesseramentoService.getTesseramentoByGiocatore(giocatore).get();
         tesseramento.setDataFine(LocalDate.now());
         this.tesseramentoService.save(tesseramento);
