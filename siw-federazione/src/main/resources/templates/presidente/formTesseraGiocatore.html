@@ -15,11 +15,16 @@
         <h2>Tessera un giocatore alla squadra <span th:text="${squadra.nome}"></span></h2>
         <section>
              <form th:action="@{'/presidente/'+${squadra.id}+'/tesseraGiocatore'}" method="post">
-               <label for="giocatore">Seleziona un giocatore non tesserato:</label>
+               <label for="giocatore">Seleziona un giocatore da Tesserare:</label>
         <select id="giocatore" name="giocatoreId">
-            <option value="">-- Seleziona un giocatore --</option>
-            <th:block th:each="giocatore : ${giocatoriLiberi}">
-                <option th:value="${giocatore.id}" th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"></option>
+            <th:block th:if="${!#lists.isEmpty(giocatoriLiberi)}">
+                <option value="" disabled selected>-- Seleziona un giocatore --</option>
+                <th:block th:each="giocatore : ${giocatoriLiberi}">
+                    <option th:value="${giocatore.id}" th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"></option>
+                </th:block>
+            </th:block>
+            <th:block th:if="${#lists.isEmpty(giocatoriLiberi)}">
+                <option value="" disabled>Non ci sono giocatori disponibili per il tesseramento</option>
             </th:block>
         </select>
 				<br><br>

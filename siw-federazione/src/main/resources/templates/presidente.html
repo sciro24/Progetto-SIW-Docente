@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<head>
+
+    <title>INFO PRES</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .container p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .container .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .container .buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .container .buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .container .buttons .signup-btn {
+            background-color: #28a745;
+        }
+
+        .container .buttons .signup-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+	<div class="container">
+
+	
+	<!-- PULSANTE LOGIN/LOGOUT -->
+	<header>
+		
+	<div th:if="${userDetails}">
+	   <span th:text="${userDetails.username}"></span>
+	   <a href="/logout">Logout</a>
+	</div>
+	<div sec:authorize="!isAuthenticated()">
+	   <a href="/login">Login</a>
+	</div>
+
+	</header>
+	
+	
+	<div><img src="/images/logo-siw.png" width="10%" /></div>
+	
+	 <span th:if="${squadra}">
+				 <span th:if="${squadra.presidente}">
+					 <p><b>Nome</b>:  <span th:text="${squadra.presidente.utente.nome}"> </span></p>
+					 <p><b>Cognome</b>:  <span th:text="${squadra.presidente.utente.cognome}"> </span></p>
+					 <p><b>Data di nascita</b>:  <span th:text="${#temporals.format(squadra.presidente.utente.dataNascita, 'dd-MM-yyyy')}"> </span></p>
+					 <p><b>Luogo di nascita</b>:  <span th:text="${squadra.presidente.luogoNascita}"> </span></p>
+				 </span>
+				 <span th:unless="${squadra.presidente}">
+					 <p>Questa squando non ha un presidente</p>
+				 </span>
+				 <button>
+				 	<a th:href="'/squadra/'+${squadra.id}+'">INDIETRO</a>
+				  </button>
+			</span>
+
+</body>
+</html>

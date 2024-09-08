@@ -23,20 +23,22 @@ insert into presidente(id, codice_fiscale, luogo_nascita, utente_id) values (nex
 
 
 -- Inserimento Squadra
-insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1927 ' , 'Via Uffici del Vicario' , 'ASRoma' , 1);
-insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1907 ' , 'Via Fiume Giallo' , 'Alba' , 2);
-insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq') , '1907 ' , 'Via Oceano Atlantico' , 'Fortitudo' , NULL);
+insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq'), '1927', 'Via Uffici del Vicario' , 'AS Roma' , 1);
+insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq'), '1897', 'via della croce', 'Juventus', 2);
+insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq'), '1908', 'viale della liberazione', 'Inter', NULL);
+insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq'), '1900', 'corso galfer', 'AC Milan', NULL);
+insert into squadra(id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq'), '1928', 'piazza del duomo', 'Fiorentina', NULL);
 
 
 -- Inserimento Giocatore
-insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, ruolo) values (nextval('giocatore_seq') , 'Totti', '2000-02-02', 'Roma', 'Francesco' , 'ATT' );
-insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, ruolo) values (nextval('giocatore_seq') , 'Strefezza', '1990-02-02', 'Napoli', 'Enrico' , 'POR');
-insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, ruolo) values (nextval('giocatore_seq') , 'Calafiori', '1980-02-02', 'Torino', 'Marco' , 'DC');
-
-
--- Inserimento Tesseramento
--- insert into tesseramento(id, data_fine, data_inizio, giocatore_id, squadra_id) values (nextval('tesseramento_seq'), '2030-12-12', '2000-12-12', 1, 1)
--- insert into tesseramento(id, data_fine, data_inizio, giocatore_id, squadra_id) values (nextval('tesseramento_seq'), '2023-12-12', '2000-12-12', 2, 1)
--- insert into tesseramento(id, data_fine, data_inizio, giocatore_id, squadra_id) values (nextval('tesseramento_seq'), '2023-12-12', '2000-12-12', 3, 1)
-
-
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, inizio_tesseramento, fine_tesseramento, squadra_id, ruolo) values (nextval('giocatore_seq') , 'Totti', '2000-02-02', 'Roma', 'Francesco' ,'2023-01-01', '2024-12-31', 1, 'ATT' );
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, inizio_tesseramento, fine_tesseramento, squadra_id, ruolo) values (nextval('giocatore_seq'), 'Ronaldo', '1985-02-05', 'Funchal', 'Cristiano', '2023-01-01', '2024-12-31', 1, 'ATT');
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, inizio_tesseramento, fine_tesseramento, squadra_id, ruolo) values (nextval('giocatore_seq'), 'Dybala', '1993-11-15', 'Laguna Larga', 'Paulo', '2023-01-01', '2024-12-31', 1, 'ATT');
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, inizio_tesseramento, fine_tesseramento, squadra_id, ruolo) values (nextval('giocatore_seq'), 'Barella', '1997-02-07', 'Cagliari', 'Nicolo', '2023-01-01', '2024-12-31', 2, 'CC');
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, inizio_tesseramento, fine_tesseramento, squadra_id, ruolo) values (nextval('giocatore_seq'), 'Martinez', '1997-08-22', 'Bahía Blanca', 'Lautaro', '2023-01-01', '2024-12-31', 2, 'ATT');
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, inizio_tesseramento, fine_tesseramento, squadra_id, ruolo) values (nextval('giocatore_seq'), 'Milenkovic', '1997-10-12', 'Belgrado', 'Nikola', NULL, NULL, NULL, 'DC');
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, inizio_tesseramento, fine_tesseramento, squadra_id, ruolo) values (nextval('giocatore_seq'), 'Zaniolo', '1999-07-02', 'Rome', 'Nicolo', '2023-01-01', '2024-12-31', 3, 'CC');
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, inizio_tesseramento, fine_tesseramento, squadra_id, ruolo) values (nextval('giocatore_seq'), 'Pedro', '1987-06-28', 'San Isidro', 'Pedro', '2023-03-01', '2024-12-31', 3, 'ATT');
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, inizio_tesseramento, fine_tesseramento, squadra_id, ruolo) values (nextval('giocatore_seq'), 'Lukaku', '1993-06-13', 'Antwerp', 'Romelu', NULL, NULL, NULL, 'ATT');
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, inizio_tesseramento, fine_tesseramento, squadra_id, ruolo) values (nextval('giocatore_seq'), 'Chiesa', '1997-10-25', 'Genova', 'Federico', '2023-01-01', '2024-12-31', 4, 'ATT');
+insert into giocatore(id, cognome, data_nascita, luogo_nascita, nome, inizio_tesseramento, fine_tesseramento, squadra_id, ruolo) values (nextval('giocatore_seq'), 'Rabiot', '1995-04-03', 'Saint-Maurice', 'Adrien', '2023-01-01', '2024-12-31', 5, 'CC');

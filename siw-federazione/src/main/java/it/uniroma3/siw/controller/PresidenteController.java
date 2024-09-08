@@ -67,13 +67,14 @@ public class PresidenteController {
 			return "presidente/error.html"; // Pagina di errore generica
 		}
 
-		// Trova i giocatori non tesserati
-		List<Giocatore> giocatoriLiberi = giocatoreService.findLiberi();
-
 		// Verifica se il presidente ha accesso alla squadra
 		if (!controllaPresidente(squadra)) {
 			return "presidente/accessoNegato.html";
 		}
+
+		// Trova i giocatori non tesserati
+		List<Giocatore> giocatoriLiberi = giocatoreService.findLiberi();
+
 
 		// Aggiungi i dati al modello
 		model.addAttribute("squadra", squadra);
@@ -111,7 +112,7 @@ public class PresidenteController {
 		giocatore.setInizioTesseramento(inizio);
 		giocatore.setFineTesseramento(fine);
 		giocatoreService.save(giocatore);
-		
+
 		return "presidente/giocatoreTesserato.html";
 
 	}
@@ -119,12 +120,66 @@ public class PresidenteController {
 
 
 
-//	@GetMapping("/presidente/{id}/formSvincolaGiocatore")
-//	}
-//
-//	@PostMapping("/presidente/{id}/svincolaGiocatore")
-//	}
+	@GetMapping("/presidente/{id}/formSvincolaGiocatore")
+	public String FormSvincolaGiocatore(@PathVariable("id") Long id, Model model) {
+		// Trova la squadra con l'ID fornito
+		Squadra squadra = squadraService.findById(id);
 
+		// Verifica se la squadra esiste
+		if (squadra == null) {
+			model.addAttribute("error", "Squadra non trovata.");
+			return "presidente/error.html"; // Pagina di errore generica
+		}
+
+		// Verifica se il presidente ha accesso alla squadra
+		if (!controllaPresidente(squadra)) {
+			return "presidente/accessoNegato.html";
+		}
+
+		// Trova i giocatori tesserati nella squadra
+		List<Giocatore> giocatoriTesserati = giocatoreService.findBySquadra(squadra);
+
+		// Aggiungi i dati al modello
+		model.addAttribute("squadra", squadra);
+		model.addAttribute("giocatoriTesserati", giocatoriTesserati);
+		//		model.addAttribute("presidenteId", presidenteId);
+
+		return "presidente/formSvincolaGiocatore.html";
+	}
+
+
+	@PostMapping("presidente/{id}/svincolaGiocatore")
+	public String svincolaGiocatore(@PathVariable("id") Long id, @RequestParam("giocatoreId") Long giocatoreId, Model model) {
+
+		// Trova la squadra con l'ID fornito
+		Squadra squadra = squadraService.findById(id);
+
+		// Verifica se la squadra esiste
+		if (squadra == null) {
+			model.addAttribute("error", "Squadra non trovata.");
+			return "presidente/error.html"; // Pagina di errore generica
+		}
+
+		// Verifica se il presidente ha accesso alla squadra
+		if (!controllaPresidente(squadra)) {
+			return "presidente/accessoNegato.html";
+		}
+
+		// Trova il giocatore da svincolare
+		Giocatore giocatore = giocatoreService.findById(giocatoreId);
+
+		// Verifica se il giocatore è tesserato nella squadra
+		if (giocatore.getSquadra() != null && giocatore.getSquadra().equals(squadra)) {
+			// Rimuovi il giocatore dalla squadra e aggiorna il tesseramento
+			giocatore.setSquadra(null);
+			giocatore.setFineTesseramento(LocalDate.now());  // Setta la data di fine tesseramento a oggi
+			giocatoreService.save(giocatore);
+		} else {
+			throw new RuntimeException("Il giocatore non è tesserato nella tua squadra.");
+		}
+
+		return "presidente/giocatoreSvincolato.html";
+	}
 
 
 }

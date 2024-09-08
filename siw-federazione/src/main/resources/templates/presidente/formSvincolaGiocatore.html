@@ -1,30 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Svincola Giocatore</title>
-    <link rel="stylesheet" href="/css/style.css" />
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Svincola Giocatore</h1>
-        </header>
+    <head>
+        <title>Svincola Giocatore</title>
+        <link rel="stylesheet" href="/css/form1.css" />
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>Svincola Giocatore</h1>
+            </header>
 
-        <section>
-            <form th:action="@{'/presidente/'+${squadra.id}+'/svincolaGiocatore'}" method="post">
-                <label for="giocatore">Seleziona Giocatore:</label>
-                <select id="giocatore" name="giocatoreId" required>
-                    <option value="" disabled selected>-- Seleziona un giocatore --</option>
-                    <option th:each="giocatore : ${giocatori}" 
-                            th:value="${giocatore.id}" 
-                            th:text="${giocatore.nome + ' ' + giocatore.cognome}"></option>
-                </select>
+            <section>
+                <form th:action="@{'/presidente/'+${squadra.id}+'/svincolaGiocatore'}" method="post">
+                    <label for="giocatoreId">Seleziona Giocatore:</label>
+                    <select name="giocatoreId" id="giocatoreId">
+                        <th:block th:if="${#lists.isEmpty(giocatoriTesserati)}">
+                            <option value="" disabled>Non ci sono giocatori da svincolare</option>
+                        </th:block>
+                        <th:block th:if="${!#lists.isEmpty(giocatoriTesserati)}">
+                            <option value="" disabled selected>-- Seleziona un giocatore --</option>
+                            <th:block th:each="giocatore : ${giocatoriTesserati}">
+                                <option th:value="${giocatore.id}" th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"></option>
+                            </th:block>
+                        </th:block>
+                    </select>
 
-                <input type="hidden" name="squadraId" th:value="${squadra.id}" />
-
-                <button type="submit">Svincola Giocatore</button>
-            </form>
-        </section>
-    </div>
-</body>
+                    <input type="hidden" name="squadraId" th:value="${squadra.id}" />
+                    <br />
+                    <br />
+                    <br />
+                    <button type="submit">Svincola Giocatore</button>
+                </form>
+            </section>
+        </div>
+    </body>
 </html>
