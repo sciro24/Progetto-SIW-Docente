@@ -3,7 +3,7 @@
 
 <head>
     <title>LOGIN</title>
-   <style>
+    <style>
         body {
             background-color: darkgrey;
             display: flex;
@@ -12,13 +12,13 @@
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
+            flex-direction: column; 
         }
 
         * {
             box-sizing: border-box;
         }
 
-        /* Full-width input fields */
         input[type=text],
         input[type=password] {
             width: 100%;
@@ -41,9 +41,8 @@
             margin-bottom: 25px;
         }
 
-        /* Set a style for all buttons */
         button {
-            background-color: #04AA6D;
+            background-color: #4CAF50;
             color: white;
             padding: 14px 20px;
             margin: 8px 0;
@@ -52,13 +51,14 @@
             width: 100%;
             opacity: 0.9;
             border-radius: 5px;
+            font-size: 1em;
+
         }
 
         button:hover {
             opacity: 1;
         }
 
-        /* Add padding to container elements */
         .container {
             background-color: #ddd;
             padding: 20px;
@@ -69,7 +69,6 @@
             margin: 20px;
         }
 
-        /* Clear floats */
         .clearfix::after {
             content: "";
             clear: both;
@@ -79,10 +78,16 @@
         .center {
             display: flex;
             justify-content: center;
+            align-items: center; 
         }
 
         .center img {
             margin-left: 10px;
+        }
+        
+        .center a {
+            color: #4CAF50;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -103,9 +108,10 @@
             <button type="submit">Login</button>
         </div>
     </form>
+    
     <div class="container center">
-        <label>Ti devi ancora registrare? </label><br>
-        <a th:href="@{/register}" th:text="Registrati">Registrati</a>
+        <label>Ti devi ancora registrare?&nbsp; </label><br>
+        <a th:href="@{/register}" th:text="Registrati ">Registrati</a>
     </div>
 </body>
 
