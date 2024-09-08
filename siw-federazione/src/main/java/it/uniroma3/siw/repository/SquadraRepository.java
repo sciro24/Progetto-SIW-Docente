@@ -10,7 +10,6 @@ import it.uniroma3.siw.model.Squadra;
 
 public interface SquadraRepository extends CrudRepository<Squadra, Long> {
 
-    public Squadra save(Squadra squadra);
 
     public List<Squadra> findAll();
 
@@ -19,5 +18,6 @@ public interface SquadraRepository extends CrudRepository<Squadra, Long> {
     public Squadra findByPresidente(Presidente presidente);
 
     public Optional<Squadra> findById(Long id);
+    
 
 }

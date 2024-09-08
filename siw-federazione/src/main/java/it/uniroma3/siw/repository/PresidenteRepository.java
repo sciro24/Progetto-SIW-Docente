@@ -11,11 +11,11 @@ import it.uniroma3.siw.model.Utente;
 
 public interface PresidenteRepository extends CrudRepository<Presidente, Long> {
 
-    public Presidente save(Presidente presidente);
 
     public boolean existsByCodiceFiscale(String codiceFiscale);
 
     public Presidente findByCodiceFiscale(String codiceFiscale);
+    
 
     public Presidente findByUtente(Utente utente);
 

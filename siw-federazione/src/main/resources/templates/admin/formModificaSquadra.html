@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"> <!-- Aggiungi il namespace Thymeleaf -->
-
+<html xmlns:th="http://www.thymeleaf.org"> 
 <head>
-    <meta charset="UTF-8"> <!-- È sempre buona pratica aggiungere il charset -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive meta tag -->
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifica Squadra</title>
     <link rel="stylesheet" href="/css/form1.css" />
 </head>
@@ -18,11 +17,10 @@
 
         <section>
             <form th:action="@{/admin/modificaSquadra}" th:object="${squadra}" method="post">
-                <!-- Menu a tendina per selezionare una squadra -->
                 <label for="squadraSelezionata">Seleziona una squadra:</label>
                 <select id="squadraSelezionata" th:field="*{id}">
                     <option th:each="squadra : ${squadre}" th:value="${squadra.id}" 
-                            th:text="${squadra.nome}"></option> <!-- Rimosso th:selected, non serve in un <select> semplice -->
+                            th:text="${squadra.nome}"></option> 
                 </select>
 
                 <h3>Modifica informazioni squadra</h3>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import it.uniroma3.siw.model.Credenziali;
 import it.uniroma3.siw.model.Giocatore;
+import it.uniroma3.siw.model.Presidente;
 import it.uniroma3.siw.model.Squadra;
 import it.uniroma3.siw.service.CredenzialiService;
 import it.uniroma3.siw.service.GiocatoreService;
@@ -56,6 +57,15 @@ public class UtenteController {
         List<Giocatore> giocatori = this.giocatoreService.findBySquadra(squadra);
         model.addAttribute("giocatori", giocatori);
         return "giocatori.html";
+    }
+    
+    @GetMapping("/squadra/{id}/presidente")
+    public String getPresidente(@PathVariable("id")Long id, Model model) {
+        Squadra squadra = this.squadraService.findById(id);
+        Presidente presidente = squadra.getPresidente();
+        model.addAttribute("squadra", squadra);
+        model.addAttribute("presidente", presidente);
+        return "presidente.html";
     }
 
     @GetMapping("/squadra/{id}/giocatori/{id2}")

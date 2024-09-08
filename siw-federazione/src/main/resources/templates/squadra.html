@@ -2,7 +2,7 @@
 <head>
 
     <title>Federazione Sportiva</title>
-    <link rel="stylesheet" href="/css/stile5.css" />
+	<link rel="stylesheet" href="/css/stile5.css" />
 
 </head>
 <body>
@@ -23,28 +23,22 @@
 	
 	
 	<div><img src="/images/logo-siw.png" width="10%" /></div>
-	<h1>INFORMAZIONI SULLA SQUADRA:</h1>
+	<h2>INFORMAZIONI SULLA SQUADRA:</h2>
 	
 			 <span th:if="${squadra}">
-				 <h2><span th:text="${squadra.nome}"> </span>:</h2>
+				 <h1><span th:text="${squadra.nome}"> </span></h1>
 				 <p><b>Anno di fondazione</b>: <span th:text="${squadra.annoFondazione}"></span></p>
 				 <p><b>Sede</b>: <span th:text="${squadra.indirizzoSede}"></span></p>
 				 <p>
-					 <button>
-						 <a th:href="'/'">
+						 <a th:href="'/'"class="button">
 							 INDIETRO
 						 </a>
-					 </button>
-					 <button>
-						 <a th:href="'/squadra/'+${squadra.id}+'/giocatori'">
+						 <a th:href="'/squadra/'+${squadra.id}+'/giocatori'"class="button">
 							 GIOCATORI
 						 </a>
-					 </button>
-					 <button>
-						 <a th:href="'/squadra/'+${squadra.id}+'/presidente'">
+						 <a th:href="'/squadra/'+${squadra.id}+'/presidente'"class="button">
 							 PRESIDENTE
 						 </a>
-					 </button>
 				 </p>
 			 </span>
 			 <span th:unless="${squadra}">

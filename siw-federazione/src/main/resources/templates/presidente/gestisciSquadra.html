@@ -69,7 +69,20 @@
 </head>
 
 <body>
-    <div class="container">
+	    <div class="container">
+
+	<!-- PULSANTE LOGIN/LOGOUT -->
+        <header>
+            <div class="auth-links" th:if="${userDetails}">
+                <span th:text="${userDetails.username}"></span>
+                <a href="/logout">Logout</a>
+            </div>
+            <div class="auth-links" sec:authorize="!isAuthenticated()">
+                <a href="/login">Login</a>
+            </div>
+
+        </header>
+        
         <h2>Gestione della Squadra: <span th:text="${squadra.nome}"></span></h2>
         <div class="actions">
             <a class="action-item" th:href="@{'/presidente/'+${squadra.id}+'/formTesseraGiocatore'}">Tessera Giocatore</a>

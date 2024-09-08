@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Presidente;
 import it.uniroma3.siw.model.Squadra;
+import it.uniroma3.siw.repository.PresidenteRepository;
 import it.uniroma3.siw.repository.SquadraRepository;
 import jakarta.persistence.EntityManager;
 
@@ -19,6 +20,7 @@ public class SquadraService {
 
     @Autowired SquadraRepository squadraRepository;
     @Autowired EntityManager entityManager;
+    @Autowired PresidenteRepository presidenteRepository;
 
     @Transactional
     public Squadra save(Squadra squadra) {
@@ -52,4 +54,5 @@ public class SquadraService {
         }
         return senza;
     }
+    
 }
