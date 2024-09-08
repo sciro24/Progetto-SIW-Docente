@@ -4,6 +4,7 @@ package it.uniroma3.siw.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,8 +12,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 @Entity
 public class Giocatore {
@@ -22,22 +25,30 @@ public class Giocatore {
     @SequenceGenerator(name = "giocatore_generator", sequenceName = "giocatore_seq", allocationSize = 1)
     private Long id;
 
+    @Column(nullable = false)
     @NotBlank
     private String nome;
 
+    @Column(nullable = false)
     @NotBlank
     private String cognome;
 
+    @Column(nullable = false)
     @NotNull
+    @Past(message = "La data di nascita deve essere nel passato")
     private LocalDate dataNascita;
 
+    @Column(nullable = false)
     @NotBlank
     private String luogoNascita;
 
+    @Column(nullable = false)
     @NotBlank
     private String ruolo;
     
     private LocalDate inizioTesseramento;
+    
+    @Future(message = "La data di fine tesseramento deve essere nel futuro")
     private LocalDate fineTesseramento;
 
     @ManyToOne

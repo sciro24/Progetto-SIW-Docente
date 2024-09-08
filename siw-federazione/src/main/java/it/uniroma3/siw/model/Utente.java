@@ -12,7 +12,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 @Entity
 public class Utente {
@@ -32,10 +35,14 @@ public class Utente {
     public String cognome;
 
     @Column(nullable = false)
+    @NotNull(message = "La data di nascita non può essere nulla")
+    @Past(message = "La data di nascita deve essere nel passato")
     @DateTimeFormat(pattern="dd-MM-yyyy")
     public LocalDate dataNascita;
 
     @Column(unique = true, nullable = false)
+    @NotBlank
+    @Email(message = "L'email deve essere valida")
     public String email;
 
     @Override

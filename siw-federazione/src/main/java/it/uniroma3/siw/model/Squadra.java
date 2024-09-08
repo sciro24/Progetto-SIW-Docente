@@ -13,6 +13,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Squadra {
@@ -27,6 +28,7 @@ public class Squadra {
     private String nome;
 
     @NotNull
+    @Pattern(regexp = "\\d{4}", message = "L 'anno di fondazione deve essere un anno valido (4 cifre)")
     private String annoFondazione;
 
     @NotBlank
