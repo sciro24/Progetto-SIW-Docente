@@ -15,22 +15,23 @@
         <h2>Tessera un giocatore alla squadra <span th:text="${squadra.nome}"></span></h2>
         <section>
              <form th:action="@{'/presidente/'+${squadra.id}+'/tesseraGiocatore'}" method="post">
-                <label for="giocatore">Seleziona Giocatore:</label>
-                <select id="giocatore" name="giocatoreId" required>
-                    <option value="" disabled selected>-- Seleziona un giocatore --</option>
-                    <option th:each="giocatore : ${giocatori}" 
-                            th:value="${giocatore.id}" 
-                            th:text="${giocatore.nome + ' ' + giocatore.cognome}"></option>
-                </select>
-
+               <label for="giocatore">Seleziona un giocatore non tesserato:</label>
+        <select id="giocatore" name="giocatoreId">
+            <option value="">-- Seleziona un giocatore --</option>
+            <th:block th:each="giocatore : ${giocatoriLiberi}">
+                <option th:value="${giocatore.id}" th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"></option>
+            </th:block>
+        </select>
+				<br><br>
                 <label for="dataInizio">Data di Inizio:</label>
-                <input type="date" id="dataInizio" name="dataInizio" required />
-
+                <input type="date" id="inizioTesseramento" name="inizioTesseramento" required />
+				<br><br>
                 <label for="dataFine">Data di Fine:</label>
-                <input type="date" id="dataFine" name="dataFine" required />
+                <input type="date" id="fineTesseramento" name="fineTesseramento" required />
 
                 <input type="hidden" name="squadraId" th:value="${squadra.id}" />
-
+				<br><br>
+				<br>
                 <button type="submit">Tesserare Giocatore</button>
             </form>
         </section>

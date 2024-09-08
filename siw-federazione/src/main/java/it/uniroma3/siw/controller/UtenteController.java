@@ -19,7 +19,6 @@ import it.uniroma3.siw.service.CredenzialiService;
 import it.uniroma3.siw.service.GiocatoreService;
 import it.uniroma3.siw.service.PresidenteService;
 import it.uniroma3.siw.service.SquadraService;
-import it.uniroma3.siw.service.TesseramentoService;
 import it.uniroma3.siw.service.UtenteService;
 import jakarta.persistence.EntityManager;
 
@@ -31,7 +30,6 @@ public class UtenteController {
     @Autowired SquadraService squadraService;
     @Autowired UtenteService utenteService;
     @Autowired CredenzialiService credenzialiService;
-    @Autowired TesseramentoService tesseramentoService;
     @Autowired EntityManager entityManager;
 
     @GetMapping("/index")

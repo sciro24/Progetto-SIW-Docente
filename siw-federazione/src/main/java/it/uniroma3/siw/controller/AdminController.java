@@ -27,7 +27,6 @@ import it.uniroma3.siw.service.CredenzialiService;
 import it.uniroma3.siw.service.GiocatoreService;
 import it.uniroma3.siw.service.PresidenteService;
 import it.uniroma3.siw.service.SquadraService;
-import it.uniroma3.siw.service.TesseramentoService;
 import it.uniroma3.siw.service.UtenteService;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.Valid;
@@ -41,7 +40,6 @@ public class AdminController {
 	@Autowired SquadraService squadraService;
 	@Autowired UtenteService utenteService;
 	@Autowired CredenzialiService credenzialiService;
-	@Autowired TesseramentoService tesseramentoService;
 	@Autowired EntityManager entityManager;
 	@Autowired UtenteValidator utenteValidator;
 	@Autowired CredenzialiValidator credenzialiValidator;

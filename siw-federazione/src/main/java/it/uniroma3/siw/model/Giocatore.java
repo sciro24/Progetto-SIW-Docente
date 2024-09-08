@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -34,6 +36,13 @@ public class Giocatore {
 
     @NotBlank
     private String ruolo;
+    
+    private LocalDate inizioTesseramento;
+    private LocalDate fineTesseramento;
+
+    @ManyToOne
+    @JoinColumn(name = "squadra_id")
+    private Squadra squadra;
 
 
 	public Long getId() {
@@ -101,6 +110,30 @@ public class Giocatore {
 		Giocatore other = (Giocatore) obj;
 		return Objects.equals(cognome, other.cognome) && Objects.equals(id, other.id)
 				&& Objects.equals(ruolo, other.ruolo);
+	}
+
+	public LocalDate getInizioTesseramento() {
+		return inizioTesseramento;
+	}
+
+	public void setInizioTesseramento(LocalDate inizioTesseramento) {
+		this.inizioTesseramento = inizioTesseramento;
+	}
+
+	public LocalDate getFineTesseramento() {
+		return fineTesseramento;
+	}
+
+	public void setFineTesseramento(LocalDate fineTesseramento) {
+		this.fineTesseramento = fineTesseramento;
+	}
+
+	public Squadra getSquadra() {
+		return squadra;
+	}
+
+	public void setSquadra(Squadra squadra) {
+		this.squadra = squadra;
 	}
 	
 	
