@@ -1,67 +1,9 @@
 <!DOCTYPE html>
 <head>
 
-    <title>Federazione Sportiva</title>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f4f4f4;
-        }
+    <title>Info Giocatore</title>
+    <link rel="stylesheet" href="/css/stile5.css" />
 
-        .container {
-            text-align: center;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .container h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-
-        .container p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .container .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .container .buttons button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .container .buttons button:hover {
-            background-color: #0056b3;
-        }
-
-        .container .buttons .signup-btn {
-            background-color: #28a745;
-        }
-
-        .container .buttons .signup-btn:hover {
-            background-color: #218838;
-        }
-    </style>
 </head>
 <body>
 	<div class="container">
@@ -84,9 +26,7 @@
 	
 	 <span th:if="${squadra}">
 				 <span th:if="${giocatore}">
-					 <h2>Giocatore:</h2>
-					 <p><b>Nome</b>: <span th:text="${giocatore.nome}"> </span></p>
-					 <p><b>Cognome</b>: <span th:text="${giocatore.cognome}"> </span></p>
+					 <h2><span th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"> </span></h2>
 					 <p><b>Data di nascita</b>: <span th:text="${#temporals.format(giocatore.dataNascita, 'dd-MM-yyyy')}"> </span></p>
 					 <p><b>Luogo di nascita</b>: <span th:text="${giocatore.luogoNascita}"> </span></p>
 					 <p><b>Ruolo</b>: <span th:text="${giocatore.ruolo}"> </span></p>
@@ -94,14 +34,12 @@
 				 <span th:unless="${giocatore}">
 					 <p>Il giocatore non esiste!</p>
 				 </span>
-				 <button>
-				 	<a th:href="'/squadra/'+${squadra.id}+'/giocatori'">INDIETRO</a>
-				  </button>
+				 	<a th:href="'/squadra/'+${squadra.id}+'/giocatori'" class="button">INDIETRO</a>
 			</span>
 			 <span th:unless="${squadra}">
 				 <p>La squadra non esiste!</p>
 				 <button>
-				 	<a th:href="'/'">INDIETRO</a>
+				 	<a th:href="'/'" class="button">INDIETRO</a>
 				  </button>
 			 </span>
 
