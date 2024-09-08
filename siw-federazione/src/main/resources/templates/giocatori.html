@@ -21,7 +21,7 @@
                 <a href="/login">Login</a>
             </div>
 
-	
+	<br><br>
 	 <div style="text-align: center;">
         <img src="/images/logo-siw.png" width="10%" alt="Logo SIW" />
     </div>
@@ -29,21 +29,26 @@
 
     <section>
         <span th:if="${squadra}">
-               
-            <h2>Giocatori della squadra: <span th:text="${squadra.nome}">squadra</span></h2><br>
-            <div id="flex-giocatori">
-                <div class="giocatori" th:each="giocatore : ${giocatori}">
-                    <a th:href="'/squadra/'+${squadra.id}+'/giocatori/'+${giocatore.id}">
-                        <h3>
-                            <span th:text="${giocatore.nome}">Nome</span>
-                            <span th:text="${giocatore.cognome}">Cognome</span>
-                            <span th:text="' (' + ${giocatore.ruolo} + ')'">Ruolo</span>
-                        </h3>
-                       
-                    </a>
-                </div>
+    <h2>Giocatori della squadra: <span th:text="${squadra.nome}">squadra</span></h2><br>
+
+    <div id="flex-giocatori">
+        <div th:if="${#lists.isEmpty(giocatori)}">
+            <h3>Questa squadra non ha giocatori</h3>
+        </div>
+        <div th:if="${!#lists.isEmpty(giocatori)}">
+            <div class="giocatori" th:each="giocatore : ${giocatori}">
+                <a th:href="'/squadra/'+${squadra.id}+'/giocatori/'+${giocatore.id}">
+                    <h3>
+                        <span th:text="${giocatore.nome}">Nome</span>
+                        <span th:text="${giocatore.cognome}">Cognome</span>
+                        <span th:text="' (' + ${giocatore.ruolo} + ')'">Ruolo</span>
+                    </h3>
+                </a>
             </div>
-        </span>
+        </div>
+    </div>
+</span>
+
          
         <span th:unless="${squadra}">
             <p class="error-message">La squadra non esiste!</p>

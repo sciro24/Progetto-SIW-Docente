@@ -58,7 +58,7 @@ public class PresidenteController {
 
 	@GetMapping("presidente/{id}/formTesseraGiocatore")
 	public String formTesseraGiocatore(@PathVariable("id") Long id, Model model) {
-		// Trova la squadra con l'ID fornito
+
 		Squadra squadra = squadraService.findById(id);
 
 		// Verifica se la squadra esiste
@@ -87,14 +87,7 @@ public class PresidenteController {
 	@PostMapping("presidente/{id}/tesseraGiocatore")
 	public String tesseraGiocatore(@PathVariable("id") Long id,@RequestParam("giocatoreId") Long giocatoreId,@RequestParam("inizioTesseramento") String inizioTesseramento,@RequestParam("fineTesseramento") String fineTesseramento, Model model) {
 
-		// Trova la squadra con l'ID fornito
 		Squadra squadra = squadraService.findById(id);
-
-		// Verifica se la squadra esiste
-		if (squadra == null) {
-			model.addAttribute("error", "Squadra non trovata.");
-			return "presidente/error.html"; // Pagina di errore generica
-		}
 
 		// Verifica se il presidente ha accesso alla squadra
 		if (!controllaPresidente(squadra)) {
@@ -122,14 +115,9 @@ public class PresidenteController {
 
 	@GetMapping("/presidente/{id}/formSvincolaGiocatore")
 	public String FormSvincolaGiocatore(@PathVariable("id") Long id, Model model) {
-		// Trova la squadra con l'ID fornito
+		
 		Squadra squadra = squadraService.findById(id);
 
-		// Verifica se la squadra esiste
-		if (squadra == null) {
-			model.addAttribute("error", "Squadra non trovata.");
-			return "presidente/error.html"; // Pagina di errore generica
-		}
 
 		// Verifica se il presidente ha accesso alla squadra
 		if (!controllaPresidente(squadra)) {
@@ -142,7 +130,6 @@ public class PresidenteController {
 		// Aggiungi i dati al modello
 		model.addAttribute("squadra", squadra);
 		model.addAttribute("giocatoriTesserati", giocatoriTesserati);
-		//		model.addAttribute("presidenteId", presidenteId);
 
 		return "presidente/formSvincolaGiocatore.html";
 	}
@@ -151,14 +138,8 @@ public class PresidenteController {
 	@PostMapping("presidente/{id}/svincolaGiocatore")
 	public String svincolaGiocatore(@PathVariable("id") Long id, @RequestParam("giocatoreId") Long giocatoreId, Model model) {
 
-		// Trova la squadra con l'ID fornito
 		Squadra squadra = squadraService.findById(id);
 
-		// Verifica se la squadra esiste
-		if (squadra == null) {
-			model.addAttribute("error", "Squadra non trovata.");
-			return "presidente/error.html"; // Pagina di errore generica
-		}
 
 		// Verifica se il presidente ha accesso alla squadra
 		if (!controllaPresidente(squadra)) {
