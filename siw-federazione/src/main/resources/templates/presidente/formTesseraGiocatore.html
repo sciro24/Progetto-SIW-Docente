@@ -14,7 +14,7 @@
 		
         
         <img src="/images/logo-siw.png" alt="Logo SIW" width="30%">
-        <h2>Tessera un giocatore alla squadra <span th:text="${squadra.nome}"></span></h2>
+        <h2>Tessera un giocatore alla squadra: <span th:text="${squadra.nome}"></span></h2>
         <section>
              <form th:action="@{'/presidente/'+${squadra.id}+'/tesseraGiocatore'}" method="post">
                <label for="giocatore">Seleziona un giocatore da Tesserare:</label>
@@ -39,7 +39,7 @@
                 <input type="hidden" name="squadraId" th:value="${squadra.id}" />
 				<br><br>
 				<br>
-                <button type="submit">Tesserare Giocatore</button>
+                <button type="submit">Tessera Giocatore</button>
             </form>
         </section>
     </div>

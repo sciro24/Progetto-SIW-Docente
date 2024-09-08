@@ -64,7 +64,7 @@ public class PresidenteController {
 		// Verifica se la squadra esiste
 		if (squadra == null) {
 			model.addAttribute("error", "Squadra non trovata.");
-			return "presidente/error.html"; // Pagina di errore generica
+			return "presidente/erroreTesseramento.html"; // Pagina di errore generica
 		}
 
 		// Verifica se il presidente ha accesso alla squadra

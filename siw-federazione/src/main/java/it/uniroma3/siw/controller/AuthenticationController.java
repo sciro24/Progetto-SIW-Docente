@@ -94,12 +94,17 @@ public class AuthenticationController {
 		}
 		if(credenziali.getRole().equals(PRESIDENT_ROLE)) {
 			Utente utente = this.utenteService.findByUsername(utenteDetails.getUsername());
-			Presidente presidente = this.presidenteService.findByUtente(utente);
-			Squadra squadra = this.squadraService.findByPresidente(presidente);
-			model.addAttribute("squadra", squadra);
-			model.addAttribute("presidente", presidente);
-			if(squadra != null)
-				model.addAttribute("nome", squadra.getNome().toUpperCase());
+		    Presidente presidente = this.presidenteService.findByUtente(utente);
+		    Squadra squadra = this.squadraService.findByPresidente(presidente);
+
+		    model.addAttribute("presidente", presidente);
+
+		    if (squadra != null) {
+		        model.addAttribute("squadra", squadra);
+		        model.addAttribute("nome", squadra.getNome().toUpperCase());
+		    } else {
+		        model.addAttribute("squadra", null);  
+		    }
 			return "presidente/indexPresidente.html";
 		}
 		List<Squadra> squadre = this.squadraService.findAll();

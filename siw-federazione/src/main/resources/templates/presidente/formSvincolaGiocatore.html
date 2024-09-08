@@ -7,7 +7,8 @@
     <body>
         <div class="container">
 			
-
+			<img src="/images/logo-siw.png" alt="Logo SIW" width="30%">
+        	<h2>Svincola un giocatore dalla squadra: <span th:text="${squadra.nome}"></span></h2>
             <section>
                 <form th:action="@{'/presidente/'+${squadra.id}+'/svincolaGiocatore'}" method="post">
                     <label for="giocatoreId">Seleziona Giocatore:</label>
