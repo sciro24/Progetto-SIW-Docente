@@ -48,7 +48,6 @@ public class Giocatore {
     
     private LocalDate inizioTesseramento;
     
-    @Future(message = "La data di fine tesseramento deve essere nel futuro")
     private LocalDate fineTesseramento;
 
     @ManyToOne
