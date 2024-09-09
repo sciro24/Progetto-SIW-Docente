@@ -33,6 +33,8 @@ public class Squadra {
 
     @NotBlank
     private String indirizzoSede;
+    
+	private String urlOfPicture;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "presidente_id", referencedColumnName = "id")
@@ -96,6 +98,14 @@ public class Squadra {
 		Squadra other = (Squadra) obj;
 		return Objects.equals(id, other.id) && Objects.equals(indirizzoSede, other.indirizzoSede)
 				&& Objects.equals(nome, other.nome) && Objects.equals(presidente, other.presidente);
+	}
+
+	public String getUrlOfPicture() {
+		return urlOfPicture;
+	}
+
+	public void setUrlOfPicture(String urlOfPicture) {
+		this.urlOfPicture = urlOfPicture;
 	}
     
 }

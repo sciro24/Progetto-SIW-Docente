@@ -23,12 +23,12 @@ insert into presidente(id, codice_fiscale, luogo_nascita, utente_id) values (nex
 
 
 -- Inserimento Squadra
-insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq'), '1927', 'Via Uffici del Vicario' , 'AS Roma' , 1);
-insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq'), 1900, 'Viale delle Olimpiadi 10, Roma', 'SS Lazio', 2);
-insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq'), 1907, 'Via delle Galassie 10, Roma', 'Alba', NULL);
-insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq'), 1901, 'Via delle Rose 15, Roma', 'Audace', NULL);
-insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq'), 1907, 'Via del Maratona 20, Roma', 'Fortitudo', NULL);
-insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id) values (nextval('squadra_seq'), 1911, 'Via dei Campioni 5, Roma', 'Pro Roma', NULL);
+insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id, url_of_picture) values (nextval('squadra_seq'), '1927', 'Via Uffici del Vicario' , 'AS Roma' , 1, 'https://www.cdnlogo.com/logos/a/88/asr-roma-1930.svg' );
+insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id, url_of_picture) values (nextval('squadra_seq'), 1900, 'Viale delle Olimpiadi 10, Roma', 'SS Lazio', 2, 'https://seeklogo.com/images/S/SS_Lazio_Roma-logo-F90E1A25D5-seeklogo.com.png') ;
+insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id, url_of_picture) values (nextval('squadra_seq'), 1907, 'Via delle Galassie 10, Roma', 'Alba', NULL, 'https://static.wixstatic.com/media/fa4065_24666a5c2b2345839ff460d511281d27~mv2.png');
+insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id, url_of_picture) values (nextval('squadra_seq'), 1901, 'Via delle Rose 15, Roma', 'Audace', NULL, 'https://i.pinimg.com/originals/9e/4e/91/9e4e917c0aa6fae2b5059d75dc9f42fb.png');
+insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id, url_of_picture) values (nextval('squadra_seq'), 1907, 'Via del Maratona 20, Roma', 'Fortitudo', NULL, 'https://upload.wikimedia.org/wikipedia/it/3/3a/Stemma-Fortitudo-1908.png');
+insert into squadra (id, anno_fondazione, indirizzo_sede, nome, presidente_id, url_of_picture) values (nextval('squadra_seq'), 1911, 'Via dei Campioni 5, Roma', 'Pro Roma', NULL,'https://lazio.lnd.it/wp-content/uploads/2021/09/novauto-pro-roma_450.png' );
 
 
 -- Inserimento Giocatore

@@ -1,45 +1,72 @@
 <!DOCTYPE html>
 <head>
+   <title>Federazione Sportiva</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="/css/stile5.css" />
+   <style>
+#flex-squadre {
+    display: flex;
+    flex-direction: column;
+    align-items: left; /* Centro le squadre orizzontalmente */
+    justify-content: center; /* Centro le squadre verticalmente */
+    gap: 20px; /* Distanza tra le squadre */
+}
 
-    <title>Federazione Sportiva</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/stile5.css" />
+.squadra-content {
+    display: flex;
+    align-items: center; /* Allinea il logo e il testo verticalmente */
+    gap: 10px; /* Spazio tra il logo e il nome */
+}
 
+.squadra-logo {
+    max-width: 50px; /* Imposta una larghezza massima per il logo */
+    height: auto;
+}
+
+.squadra-nome {
+    font-size: 18px;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra il contenuto del container orizzontalmente */
+}
+
+   </style>
 </head>
 <body>
-	<div class="container">
-
-	
-	 <!-- PULSANTE LOGIN/LOGOUT -->
-        <header>
-            <div class="auth-links" th:if="${userDetails}">
-                <span th:text="${userDetails.username}"></span>
-                <a href="/logout">Logout</a>
+   <div class="container">
+   <!-- PULSANTE LOGIN/LOGOUT -->
+   <header>
+      <div class="auth-links" th:if="${userDetails}">
+         <span th:text="${userDetails.username}"></span>
+         <a href="/logout">Logout</a>
+      </div>
+      <div class="auth-links" sec:authorize="!isAuthenticated()">
+         <a href="/login">Login</a>
+      </div>
+      <br><br>
+   </header>
+   <br>
+   <h1>FEDERAZIONE SQUADRE </h1>
+   <h1>STORICHE ROMANE</h1>
+   <br><br><br>
+   <div>
+      <section>
+         <div id="flex-squadre">
+            <div class="squadra" th:each="squadra : ${squadre}">
+               <a th:href="@{'/squadra/'+${squadra.id}}">
+                  <div class="squadra-content">
+                     <img class="squadra-logo" width="30%" th:src="${squadra.urlOfPicture}" alt="Logo squadra"/>
+                     <h3 class="squadra-nome"><span th:text="*{squadra.nome} + ' (' + *{squadra.annoFondazione + ')'}">nome</span></h3>
+                  </div>
+               </a>
             </div>
-            <div class="auth-links" sec:authorize="!isAuthenticated()">
-                <a href="/login">Login</a>
-            </div>
-            <br><br>
-            <div><img src="/images/logo-siw.png" width="15%" /></div>
-
-
-        </header>
-	<br>
-	<h1>FEDERAZIONE SQUADRE </h1><h1>STORICHE ROMANE</h1><br>
-	<div>
-		<section>
-				<div id="flex-squadre">
-					<div class="squadre" th:each="squadra : ${squadre}">
-						<a th:href="@{'/squadra/'+${squadra.id}}">
-							<h3 class="squadre"><span th:text="*{squadra.nome} + ' (' + *{squadra.annoFondazione + ')'}">nome </span></h3>
-							</a><br>
-							
-					</div>
-				</div>
-          </section>
-    </div>
-
-
+         </div>
+      </section>
+   </div>
 </body>
 </html>

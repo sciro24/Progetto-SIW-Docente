@@ -31,6 +31,11 @@
             <span th:if="${#fields.hasErrors('indirizzoSede')}" th:errors="*{indirizzoSede}" style="color: red"></span>
         </p>
         <p>
+     		<label>Immagine (url):</label>
+      		<span><input type="text" th:field="${squadra.urlOfPicture}" /></span>
+      		<span th:if="${#fields.hasErrors('urlOfPicture')}" th:errors="*{urlOfPicture}" style="color: red"></span>
+    	</p>
+        <p>
             <button type="button" onclick="location.href='/'">INDIETRO</button>
             <button type="submit">INSERISCI</button>
         </p>
