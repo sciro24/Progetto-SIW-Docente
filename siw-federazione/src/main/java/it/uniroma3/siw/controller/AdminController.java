@@ -128,7 +128,7 @@ public class AdminController {
 		if (id != null) {
 			squadra = squadraRepository.findById(id).orElse(new Squadra());
 		} else {
-			squadra = new Squadra();  // Oggetto vuoto per inizializzare il form
+			squadra = new Squadra();  
 		}
 	    model.addAttribute("squadra", squadra);
 		model.addAttribute("squadre", squadre);

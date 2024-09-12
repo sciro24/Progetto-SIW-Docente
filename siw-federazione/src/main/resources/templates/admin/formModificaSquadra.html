@@ -36,8 +36,12 @@
                 <label for="indirizzoSede">Indirizzo Sede:</label>
                 <input type="text" id="indirizzoSede" th:field="*{indirizzoSede}" />
                 <div th:if="${#fields.hasErrors('indirizzoSede')}" th:errors="*{indirizzoSede}">Errore nel campo Indirizzo Sede</div>
+				<br><br>
+				<label for="urlOfPicture">URL Immagine:</label>
+				<input type="text" id="urlOfPicture" th:field="*{urlOfPicture}" />
+				<div th:if="${#fields.hasErrors('urlOfPicture')}" th:errors="*{urlOfPicture}">Errore nel campo URL Immagine</div>
 				<br><br><br>
-                <button type="submit">Salva Modifiche</button>
+				<button type="submit">Salva Modifiche</button>
             </form>
         </section>
     </div>
