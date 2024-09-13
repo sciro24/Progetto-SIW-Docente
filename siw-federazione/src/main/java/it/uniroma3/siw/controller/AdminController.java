@@ -61,21 +61,26 @@ public class AdminController {
 		this.utenteValidator.validate(utente, utenteBindingResult);
 		this.credenzialiValidator.validate(credenziali, credenzialiBindingResult);
 		this.presidenteValidator.validate(presidente, presidenteBindingResult);
+		
 		if(!utenteBindingResult.hasErrors() || !credenzialiBindingResult.hasErrors() || !presidenteBindingResult.hasErrors()) {
 			credenziali.setRole(PRESIDENT_ROLE);
 			credenziali.setUtente(utente);
 			presidente.setUtente(utente);
+			
 			this.utenteService.saveUser(utente);
 			this.presidenteService.save(presidente);
 			this.credenzialiService.save(credenziali);
+			
 			model.addAttribute("utente", utente);
 			model.addAttribute("credenziali", credenziali);
 			model.addAttribute("presidente", presidente);
+			
 			return "admin/presidenteCreato.html";
 		}
 		model.addAttribute("utente", utente);
 		model.addAttribute("credenziali", credenziali);
 		model.addAttribute("presidente", presidente);
+		
 		return "/admin/formNewPresidente.html";
 	}
 
@@ -90,7 +95,7 @@ public class AdminController {
 
 		// Verifica la presenza di errori di validazione
 		if (result.hasErrors()) {
-			return "/admin/formNewGiocatore.html"; // Torna al form in caso di errori
+			return "/admin/formNewGiocatore.html"; 
 		}
 
 		// Salva il nuovo giocatore nel database

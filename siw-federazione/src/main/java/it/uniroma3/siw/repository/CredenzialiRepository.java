@@ -15,8 +15,6 @@ public interface CredenzialiRepository extends CrudRepository<Credenziali, Long>
 
 	public List<Credenziali> findAll();
 
-	public Credenziali save(Credenziali credenziali);
-
 	public void delete(Credenziali credenziali);
 
 }

@@ -16,8 +16,8 @@ public class UtenteValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+    	
         Utente utente = (Utente) target;
-
         String nome = utente.getNome().trim();
         String cognome = utente.getCognome().trim();
 

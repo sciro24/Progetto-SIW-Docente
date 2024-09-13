@@ -22,34 +22,34 @@ public class GiocatoreValidator implements Validator {
 
         String nome = giocatore.getNome().trim();
         if (nome.isEmpty()) {
-            errors.rejectValue("nome", "NotBlank.giocatore.nome", "Il nome è obbligatorio");
+            errors.reject("NotBlank.giocatore.nome");
         } 
 
         String cognome = giocatore.getCognome().trim();
         if (cognome.isEmpty()) {
-            errors.rejectValue("cognome", "NotBlank.giocatore.cognome", "Il cognome è obbligatorio");
+            errors.reject("NotBlank.giocatore.cognome");
         } 
 
         if (giocatore.getDataNascita() == null) {
-            errors.rejectValue("dataNascita", "NotNull.giocatore.dataNascita", "La data di nascita è obbligatoria");
+            errors.reject("NotNull.giocatore.dataNascita");
         }
 
         String luogoNascita = giocatore.getLuogoNascita().trim();
         if (luogoNascita.isEmpty()) {
-            errors.rejectValue("luogoNascita", "NotBlank.giocatore.luogoNascita", "Il luogo di nascita è obbligatorio");
+            errors.reject("NotBlank.giocatore.luogoNascita");
         }
 
         String ruolo = giocatore.getRuolo().trim();
         if (ruolo.isEmpty()) {
-            errors.rejectValue("ruolo", "NotBlank.giocatore.ruolo", "Il ruolo è obbligatorio");
+            errors.reject("NotBlank.giocatore.ruolo");
         }
 
         if (giocatore.getInizioTesseramento() != null && giocatore.getFineTesseramento() != null) {
             if (giocatore.getFineTesseramento().isBefore(giocatore.getInizioTesseramento())) {
-                errors.rejectValue("fineTesseramento", "Invalid.giocatore.fineTesseramento", "La data di fine tesseramento deve essere successiva alla data di inizio");
+                errors.reject("Invalid.giocatore.fineTesseramento");
             }
             if (giocatore.getFineTesseramento().isBefore(LocalDate.now())) {
-                errors.rejectValue("fineTesseramento", "Future.giocatore.fineTesseramento", "La data di fine tesseramento deve essere nel futuro");
+                errors.reject("Future.giocatore.fineTesseramento");
             }
         }
     }

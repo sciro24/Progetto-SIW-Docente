@@ -29,7 +29,7 @@ public class Credenziali {
 
 	@Column(unique = true)
 	@NotBlank(message = "Username non può essere vuoto")
-	@Size(min = 3, max = 50, message = "Username deve avere tra 3 e 50 caratteri")
+	@Size(min = 3, max = 30, message = "Username deve avere tra 3 e 30 caratteri")
 	private String username;
 
 	@NotBlank(message = "Password non può essere vuota")

@@ -35,26 +35,26 @@ public class PresidenteService {
 
     public List<Presidente> findLiberi() {
         List<Presidente> tutti = this.findAll();
-        List<Presidente> out = new ArrayList<>();
+        List<Presidente> liberi = new ArrayList<>();
 
         for(Presidente presidente : tutti) {
             if (!this.squadraService.existsByPresidente(presidente)) {
-                out.add(presidente);
+                liberi.add(presidente);
             }
         }
-        return out;
+        return liberi;
     }
 
     public List<Presidente> findOccupati() {
         List<Presidente> tutti = this.findAll();
-        List<Presidente> out = new ArrayList<>();
+        List<Presidente> occupati = new ArrayList<>();
 
         for(Presidente presidente : tutti) {
             if (this.squadraService.existsByPresidente(presidente)) {
-                out.add(presidente);
+            	occupati.add(presidente);
             }
         }
-        return out;
+        return occupati;
     }
 
     public Presidente findByCodiceFiscale(String codiceFiscale) {

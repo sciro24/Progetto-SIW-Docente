@@ -17,7 +17,4 @@ public interface UtenteRepository extends CrudRepository<Utente, Long> {
 
     public List<Utente> findAll();
 
-    public Utente save(Utente utente);
-	
-	
 }

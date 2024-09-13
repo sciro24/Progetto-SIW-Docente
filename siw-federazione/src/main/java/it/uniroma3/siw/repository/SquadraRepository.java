@@ -18,6 +18,5 @@ public interface SquadraRepository extends CrudRepository<Squadra, Long> {
     public Squadra findByPresidente(Presidente presidente);
 
     public Optional<Squadra> findById(Long id);
-    
 
 }

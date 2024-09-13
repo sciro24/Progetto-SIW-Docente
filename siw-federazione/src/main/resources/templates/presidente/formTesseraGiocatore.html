@@ -30,12 +30,21 @@
             </th:block>
         </select>
 				<br><br>
+				
+				
                 <label for="dataInizio">Data di Inizio:</label>
                 <input type="date" id="inizioTesseramento" name="inizioTesseramento" required />
+                
+                
 				<br><br>
+				
+				
                 <label for="dataFine">Data di Fine:</label>
                 <input type="date" id="fineTesseramento" name="fineTesseramento"  required />
+                
                 <input type="hidden" name="squadraId" th:value="${squadra.id}" />
+                
+                
 				<br><br>
 				<br>
                 <button type="submit">Tessera Giocatore</button>

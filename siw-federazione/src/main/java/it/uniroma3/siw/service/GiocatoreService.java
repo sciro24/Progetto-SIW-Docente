@@ -18,12 +18,10 @@ public class GiocatoreService {
 	@Autowired
     private GiocatoreRepository giocatoreRepository;
 
-    // Restituisce tutti i giocatori
     public List<Giocatore> findAll() {
         return giocatoreRepository.findAll();
     }
 
-    // Trova un giocatore per ID
     public Giocatore findById(Long id) {
         Optional<Giocatore> giocatore = this.giocatoreRepository.findById(id);
         return giocatore.orElse(null);
@@ -39,7 +37,6 @@ public class GiocatoreService {
         return giocatoreRepository.findTesserati(LocalDate.now());
     }
 
-    // Trova un giocatore per nome e cognome
     public Giocatore findByNomeAndCognome(String nome, String cognome) {
         return giocatoreRepository.findByNomeAndCognome(nome, cognome);
     }
@@ -49,23 +46,12 @@ public class GiocatoreService {
         return giocatoreRepository.findLiberi(LocalDate.now());
     }
 
-    // Verifica se esiste un giocatore con un determinato nome e cognome
     public boolean existsByNomeAndCognome(String nome, String cognome) {
         return giocatoreRepository.existsByNomeAndCognome(nome, cognome);
     }
 
-    // Salva un nuovo giocatore o aggiorna un giocatore esistente
     @Transactional
     public Giocatore save(Giocatore giocatore) {
         return giocatoreRepository.save(giocatore);
     }
-
-    // Elimina un giocatore per ID
-    @Transactional
-    public void deleteById(Long id) {
-        giocatoreRepository.deleteById(id);
-    }
-
-
-
 }

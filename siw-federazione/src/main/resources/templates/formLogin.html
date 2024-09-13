@@ -104,7 +104,7 @@
             <br>
             <span>Password:</span>
             <input name="password" type="password" required />
-            <span th:if="${param.error != null}">Username o password errati</span>
+			<span th:if="${param.error != null}" style="color: red;">Username o password errati</span>
             <button type="submit">Login</button>
         </div>
     </form>

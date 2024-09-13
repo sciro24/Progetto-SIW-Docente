@@ -35,7 +35,6 @@
 			<h3 style="color: red;">NON SEI PRESIDENTE DI NESSUNA SQUADRA!!!</h3>
             </span>
 
-            <!-- Verifica se il presidente ha una squadra -->
             <span th:if="${squadra != null}">
                 <h3>GESTISCI LA TUA SQUADRA:</h3>
                 <a th:href="@{'/presidente/' + ${squadra?.id} + '/gestisciSquadra'}" style="color: white; text-decoration: none;">
