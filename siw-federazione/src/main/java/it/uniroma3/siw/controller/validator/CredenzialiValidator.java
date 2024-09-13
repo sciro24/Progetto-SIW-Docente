@@ -33,7 +33,7 @@ public class CredenzialiValidator implements Validator {
 		}
 
 		if(!credenziali.getUsername().isEmpty() && this.utenteRepository.existsByEmail(credenziali.getUsername())) {
-			errors.reject("duplicate");
+			errors.reject("credenziali.duplicate.username");
 		}
 
 	}

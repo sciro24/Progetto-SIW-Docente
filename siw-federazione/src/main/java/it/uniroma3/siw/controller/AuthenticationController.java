@@ -120,7 +120,7 @@ public class AuthenticationController {
 			BindingResult credenzialiBindingResult,
 			Model model) {
 
-		// se utente e credential hanno entrambi contenuti validi, memorizza utente e the Credenziali nel DB
+		// se utente e credential hanno entrambi contenuti validi, memorizza utente e credenziali nel DB
 
 		this.utenteValidator.validate(utente, utenteBindingResult);
 		this.credenzialiValidator.validate(credenziali, credenzialiBindingResult);
@@ -134,6 +134,7 @@ public class AuthenticationController {
 			model.addAttribute("utente", utente);
 			return "registrationSuccessful.html";
 		}
+		
 		model.addAttribute("utente", utente);
 		model.addAttribute("credenziali", credenziali);
 		return "formRegisterUser.html";

@@ -124,34 +124,34 @@
                 <div class="left-column">
                     <div class="form-group">
                         <label for="nome">Nome</label>
-                        <input type="text"  placeholder="nome" required th:field="${utente.nome}">
+                        <input type="text"  placeholder="nome" th:field="${utente.nome}">
                         <span th:if="${#fields.hasErrors('utente.nome')}" th:errors="${utente.nome}" style="color:red"></span>
                     </div>
                     <div class="form-group">
                         <label for="cognome">Cognome</label>
-                        <input type="text"  placeholder="cognome" required th:field="${utente.cognome}">
+                        <input type="text"  placeholder="cognome" th:field="${utente.cognome}">
                         <span th:if="${#fields.hasErrors('utente.cognome')}" th:errors="${utente.cognome}" style="color:red"></span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="text"  placeholder="email" required th:field="${utente.email}">
+                        <input type="text"  placeholder="email" th:field="${utente.email}">
                         <span th:if="${#fields.hasErrors('utente.email')}" th:errors="${utente.email}" style="color:red"></span>
                     </div>
                 </div>
                 <div class="right-column">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text"  placeholder="username" required th:field="${credenziali.username}">
+                        <input type="text"  placeholder="username" th:field="${credenziali.username}">
                         <span th:if="${#fields.hasErrors('credenziali.username')}" th:errors="${credenziali.username}" style="color:red"></span>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password"  placeholder="password" required th:field="${credenziali.password}">
+                        <input type="password"  placeholder="password" th:field="${credenziali.password}">
                         <span th:if="${#fields.hasErrors('credenziali.password')}" th:errors="${credenziali.password}" style="color:red"></span>
                     </div>
                     <div class="form-group">
                         <label>Data di nascita</label><br>
-                    	<input type="date" placeholder="Data di nascita"  th:field="${utente.dataNascita}"/>
+                    	<input type="date" placeholder="Data di nascita" required th:field="${utente.dataNascita}"/>
                     	<span th:if="${#fields.hasErrors('utente.dataNascita')}" th:error="${utente.dataNascita}" style="color:red"></span>
                     </div>
                 </div>

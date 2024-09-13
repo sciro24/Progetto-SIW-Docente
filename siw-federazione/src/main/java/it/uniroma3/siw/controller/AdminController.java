@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.controller.validator.CredenzialiValidator;
+import it.uniroma3.siw.controller.validator.GiocatoreValidator;
 import it.uniroma3.siw.controller.validator.PresidenteValidator;
 import it.uniroma3.siw.controller.validator.SquadraValidator;
 import it.uniroma3.siw.controller.validator.UtenteValidator;
@@ -45,6 +46,7 @@ public class AdminController {
 	@Autowired CredenzialiValidator credenzialiValidator;
 	@Autowired PresidenteValidator presidenteValidator;
 	@Autowired SquadraValidator squadraValidator;
+	@Autowired GiocatoreValidator giocatoreValidator;
 
 	@GetMapping("/admin/formNewPresidente")
 	public String formNewPresidente(Model model) {
@@ -93,8 +95,12 @@ public class AdminController {
 	@PostMapping("/admin/giocatore")
 	public String newGiocatore(@Valid @ModelAttribute("giocatore") Giocatore giocatore, BindingResult result, Model model) {
 
+		
+		this.giocatoreValidator.validate(giocatore, result);
+		
 		// Verifica la presenza di errori di validazione
 		if (result.hasErrors()) {
+			model.addAttribute("giocatore", giocatore);
 			return "/admin/formNewGiocatore.html"; 
 		}
 
@@ -114,7 +120,9 @@ public class AdminController {
 
 	@PostMapping("/admin/squadra")
 	public String newSquadra(@Valid @ModelAttribute("squadra") Squadra squadra, BindingResult bindingResult, Model model) {
+		
 		this.squadraValidator.validate(squadra, bindingResult);
+		
 		if(bindingResult.hasErrors()) {
 			return "admin/formNewSquadra.html";
 		}
@@ -150,7 +158,7 @@ public class AdminController {
 			}
 
 			squadraRepository.save(squadra);
-			return "admin/squadraModificata.html"; // Redireziona alla lista di squadre o a una pagina di successo
+			return "admin/squadraModificata.html"; 
 		}
 	
 
@@ -177,33 +185,6 @@ public class AdminController {
 		model.addAttribute("squadra", squadra);
 		return "admin/presidenteAssegnato.html";
 	}
-
-
-	//    @GetMapping("/admin/formCambiaSquadra")
-	//    public String formCambiaPresidente(Model model) {
-	//        model.addAttribute("squadre", this.squadraService.findSenzaPresidente());
-	//        model.addAttribute("presidenti", this.presidenteService.findOccupati());
-	//        model.addAttribute("errore", null);
-	//        return "admin/formCambiaSquadra.html";
-	//    }
-	//
-	//    @PostMapping("/admin/cambiaSquadra")
-	//    public String cambiaPresidente(@RequestParam("id") String id, @RequestParam("codiceFiscale") String codiceFiscale, Model model) {
-	//        if (codiceFiscale.trim().isEmpty()) {
-	//            model.addAttribute("errore", "Presidente è un campo obbligatorio!");
-	//            return "admin/formCambiaSquadra.html";
-	//        }
-	//        Presidente presidente = this.presidenteService.findByCodiceFiscale(codiceFiscale);
-	//        Squadra vecchia = this.squadraService.findByPresidente(presidente);
-	//       if (!id.trim().isEmpty()) {
-	//           Squadra nuova = this.squadraService.findById(Long.valueOf(id));
-	//           nuova.setPresidente(presidente);
-	//           this.squadraService.save(nuova);
-	//       }
-	//        vecchia.setPresidente(null);
-	//        this.squadraService.save(vecchia);
-	//       return "admin/squadraAssegnata.html";
-	//    }
 
 
 }

@@ -12,32 +12,30 @@ import it.uniroma3.siw.service.SquadraService;
 @Component
 public class SquadraValidator implements Validator {
 
-    @Autowired SquadraService squadraService;
+	@Autowired SquadraService squadraService;
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return Squadra.class.equals(clazz);
-    }
+	@Override
+	public boolean supports(Class<?> clazz) {
+		return Squadra.class.equals(clazz);
+	}
 
-    @Override
-    public void validate(Object target, Errors errors) {
-        Squadra squadra = (Squadra) target;
+	@Override
+	public void validate(Object target, Errors errors) {
+		Squadra squadra = (Squadra) target;
 
-        String nome = squadra.getNome().trim();
-        String anno = squadra.getAnnoFondazione().trim();
-        String sede = squadra.getIndirizzoSede().trim();
 
-        if (nome.isEmpty()) {
-            errors.reject("NotBlank.squadra.nome");
-        }
+		 if (squadra.getNome() == null || squadra.getNome().trim().isEmpty()) {
+	            errors.reject("NotBlank.squadra.nome");
+	        }
 
-        if (anno.isEmpty()) {
-            errors.reject("NotBlank.squadra.annoFondazione");
-        }
+	        if (squadra.getAnnoFondazione() == null || squadra.getAnnoFondazione().trim().isEmpty()) {
+	            errors.reject("NotBlank.squadra.annoFondazione");
+	        }
 
-        if (sede.isEmpty()) {
-            errors.reject("NotBlank.squadra.sede");
-        }
-        
-    }
+	        if (squadra.getIndirizzoSede() == null || squadra.getIndirizzoSede().trim().isEmpty()) {
+	            errors.reject("NotBlank.squadra.sede");
+	        }
+
+	}
+
 }
