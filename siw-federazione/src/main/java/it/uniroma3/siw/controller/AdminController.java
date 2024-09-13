@@ -50,16 +50,20 @@ public class AdminController {
 
 	@GetMapping("/admin/formNewPresidente")
 	public String formNewPresidente(Model model) {
+		
 		model.addAttribute("presidente", new Presidente());
 		model.addAttribute("utente", new Utente());
 		model.addAttribute("credenziali", new Credenziali());
+		
 		return "admin/formNewPresidente.html";
 	}
 
 	@PostMapping("/admin/presidente")
 	public String newPresidente(@Valid @ModelAttribute("utente") Utente utente, @Valid @ModelAttribute("credenziali") Credenziali credenziali, @Valid @ModelAttribute("presidente")Presidente presidente, BindingResult utenteBindingResult, BindingResult credenzialiBindingResult, BindingResult presidenteBindingResult, Model model) {
+		
 		String username = credenziali.getUsername();
 		utente.setEmail(username);
+		
 		this.utenteValidator.validate(utente, utenteBindingResult);
 		this.credenzialiValidator.validate(credenziali, credenzialiBindingResult);
 		this.presidenteValidator.validate(presidente, presidenteBindingResult);

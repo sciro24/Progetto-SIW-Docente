@@ -36,11 +36,13 @@ public class UtenteController {
     @GetMapping("/index")
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             Credenziali credenziali = this.credenzialiService.getCredenziali(userDetails.getUsername());
             model.addAttribute("credenziali", credenziali);
         }
+        
         return "index.html";
     }
 
