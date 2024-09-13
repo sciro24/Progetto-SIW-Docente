@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.controller.validator.GiocatoreValidator;
 import it.uniroma3.siw.model.Giocatore;
 import it.uniroma3.siw.model.Presidente;
 import it.uniroma3.siw.model.Squadra;
@@ -37,6 +38,7 @@ public class PresidenteController {
 	@Autowired UtenteService utenteService;
 	@Autowired CredenzialiService credenzialiService;
 	@Autowired EntityManager entityManager;
+	@Autowired GiocatoreValidator giocatoreValidator;
 
 
 	private boolean controllaPresidente(Squadra squadra) {
@@ -67,7 +69,6 @@ public class PresidenteController {
 			return "presidente/erroreTesseramento.html"; // Pagina di errore generica
 		}
 
-		// Verifica se il presidente ha accesso alla squadra
 		if (!controllaPresidente(squadra)) {
 			return "presidente/accessoNegato.html";
 		}
@@ -76,11 +77,9 @@ public class PresidenteController {
 		List<Giocatore> giocatoriLiberi = giocatoreService.findLiberi();
 
 
-		// Aggiungi i dati al modello
 		model.addAttribute("squadra", squadra);
 		model.addAttribute("giocatoriLiberi", giocatoriLiberi);
 
-		// Restituisce il nome del template
 		return "presidente/formTesseraGiocatore.html";
 	}
 
@@ -89,14 +88,14 @@ public class PresidenteController {
 
 		Squadra squadra = squadraService.findById(id);
 
-		// Verifica se il presidente ha accesso alla squadra
 		if (!controllaPresidente(squadra)) {
 			return "presidente/accessoNegato.html";
 		}
+
 		// Trova il giocatore da tesserare
 		Giocatore giocatore = giocatoreService.findById(giocatoreId);
 
-		// Converti le date
+		// Converti le date da string a LocalDate
 		LocalDate inizio = LocalDate.parse(inizioTesseramento);
 		LocalDate fine = LocalDate.parse(fineTesseramento);
 
@@ -111,15 +110,12 @@ public class PresidenteController {
 	}
 
 
-
-
 	@GetMapping("/presidente/{id}/formSvincolaGiocatore")
 	public String FormSvincolaGiocatore(@PathVariable("id") Long id, Model model) {
-		
+
 		Squadra squadra = squadraService.findById(id);
 
 
-		// Verifica se il presidente ha accesso alla squadra
 		if (!controllaPresidente(squadra)) {
 			return "presidente/accessoNegato.html";
 		}
@@ -127,7 +123,6 @@ public class PresidenteController {
 		// Trova i giocatori tesserati nella squadra
 		List<Giocatore> giocatoriTesserati = giocatoreService.findBySquadra(squadra);
 
-		// Aggiungi i dati al modello
 		model.addAttribute("squadra", squadra);
 		model.addAttribute("giocatoriTesserati", giocatoriTesserati);
 
@@ -141,7 +136,6 @@ public class PresidenteController {
 		Squadra squadra = squadraService.findById(id);
 
 
-		// Verifica se il presidente ha accesso alla squadra
 		if (!controllaPresidente(squadra)) {
 			return "presidente/accessoNegato.html";
 		}

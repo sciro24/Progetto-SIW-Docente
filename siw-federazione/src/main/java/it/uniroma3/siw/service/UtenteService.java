@@ -13,9 +13,6 @@ import it.uniroma3.siw.model.Credenziali;
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.repository.UtenteRepository;
 
-/**
- * The UserService handles logic for Users.
- */
 @Service
 public class UtenteService {
 
@@ -24,13 +21,13 @@ public class UtenteService {
 
 	@Autowired
 	protected CredenzialiService credenzialiService;
-	
+
 
 	public Utente getUser(Long id) {
 		Optional<Utente> result = this.utenteRepository.findById(id);
 		return result.orElse(null);
 	}
-	
+
 	public boolean existsByEmail(String email) {
 		return this.utenteRepository.existsByEmail(email);
 	}
@@ -47,27 +44,24 @@ public class UtenteService {
 		}
 		return null;
 	}
-	
 
-    @Transactional
-    public void registerUser(Utente user) {
-        if (utenteRepository.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("Esiste già un account con questa mail");
-        }
-        utenteRepository.save(user);
-    }
-
-
+	@Transactional
+	public void registerUser(Utente user) {
+		if (utenteRepository.existsByEmail(user.getEmail())) {
+			throw new IllegalArgumentException("Esiste già un account con questa mail");
+		}
+		utenteRepository.save(user);
+	}
 
 	@Transactional
 	public Utente saveUser(Utente user) {
 		return this.utenteRepository.save(user);
 	}
-	
+
 	@Transactional
-    public List<Utente> findAll() {
-        return this.utenteRepository.findAll();
-    }
+	public List<Utente> findAll() {
+		return this.utenteRepository.findAll();
+	}
 
 	@Transactional
 	public List<Utente> getAllUsers() {
