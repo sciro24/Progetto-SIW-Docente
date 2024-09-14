@@ -57,10 +57,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/presidente")
-	public String newPresidente(@Valid @ModelAttribute("utente") Utente utente, BindingResult utenteBindingResult,
-            @Valid @ModelAttribute("credenziali") Credenziali credenziali, BindingResult credenzialiBindingResult,
-            @Valid @ModelAttribute("presidente") Presidente presidente, BindingResult presidenteBindingResult,
-            Model model) {
+	public String newPresidente(@Valid @ModelAttribute("utente") Utente utente, BindingResult utenteBindingResult,@Valid @ModelAttribute("credenziali") Credenziali credenziali, BindingResult credenzialiBindingResult,@Valid @ModelAttribute("presidente") Presidente presidente, BindingResult presidenteBindingResult,Model model) {
 		String username = credenziali.getUsername();
 		utente.setEmail(username);
 		
@@ -93,7 +90,7 @@ public class AdminController {
 
 	@GetMapping("/admin/formNewGiocatore")
 	public String formNewGiocatore(Model model) {
-		model.addAttribute("giocatore", new Presidente());
+		model.addAttribute("giocatore", new Giocatore());
 		return "admin/formNewGiocatore.html";
 	}
 

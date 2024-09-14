@@ -14,47 +14,59 @@
         <img src="/images/logo-siw.png" alt="Logo SIW" width="30%">
         <h1>INSERISCI UN NUOVO GIOCATORE</h1>
         <section>
-				<form th:action="@{/admin/giocatore}" method="post">
-                <p><sup>*</sup> Campo obbligatorio</p>
+				<form th:action="@{/admin/giocatore}" th:object="${giocatore}" method="post">
+    <p><sup>*</sup> Campo obbligatorio</p>
 
-                <p>
-                    <label>Nome<sup>*</sup></label><br>
-                    <input type="text" name="nome" required />
-                </p>
-                <p>
-                    <label>Cognome<sup>*</sup></label><br>
-                    <input type="text" name="cognome" required />
-                </p>
-                <p>
-                    <label>Data di nascita<sup>*</sup></label><br>
-                    <input type="date" name="dataNascita" required />
-                </p>
-                <p>
-                    <label>Luogo di nascita<sup>*</sup></label><br>
-                    <input type="text" name="luogoNascita" required />
-                </p>
-                <p>
-                    <label>Ruolo<sup>*</sup></label><br>
-                    <select name="ruolo" required>
-                        <option value="" disabled selected>Seleziona un ruolo</option>
-                        <option value="POR">POR</option>
-                        <option value="TS">TS</option>
-                        <option value="DC">DC</option>
-                        <option value="TD">DC</option>
-                        <option value="ES">ES</option>
-                        <option value="CC">CC</option>
-                        <option value="ED ">ED</option>
-                        <option value="ATT">ATT</option>
-                    </select>
-                </p>
+    <p>
+        <label>Nome<sup>*</sup></label><br>
+        <input type="text" th:field="*{nome}"  />
+        <span class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+    </p>
+    <p>
+        <label>Cognome<sup>*</sup></label><br>
+        <input type="text" th:field="*{cognome}"  />
+        <span class="error" th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
+    </p>
+    <p>
+        <label>Data di nascita<sup>*</sup></label><br>
+        <input type="date" th:field="*{dataNascita}"  />
+        <span class="error" th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
+    </p>
+    <p>
+        <label>Luogo di nascita<sup>*</sup></label><br>
+        <input type="text" th:field="*{luogoNascita}"  />
+        <span class="error" th:if="${#fields.hasErrors('luogoNascita')}" th:errors="*{luogoNascita}"></span>
+    </p>
+    <p>
+        <label>Ruolo<sup>*</sup></label><br>
+        <select th:field="*{ruolo}" >
+            <option value="" disabled selected>Seleziona un ruolo</option>
+            <option value="POR">POR</option>
+            <option value="TS">TS</option>
+            <option value="DC">DC</option>
+            <option value="TD">DC</option>
+            <option value="ES">ES</option>
+            <option value="CC">CC</option>
+            <option value="ED">ED</option>
+            <option value="ATT">ATT</option>
+        </select>
+        <span class="error" th:if="${#fields.hasErrors('ruolo')}" th:errors="*{ruolo}"></span>
+    </p>
 
-                <div class="form-actions">
-                    <button class="back-button">
-                        <a th:href="'/'">INDIETRO</a>
-                    </button>
-                    <button type="submit">INSERISCI</button>
-                </div>
-            </form>
+    <div class="form-actions">
+        <button class="back-button">
+            <a th:href="'/'">INDIETRO</a>
+        </button>
+        <button type="submit">INSERISCI</button>
+    </div>
+</form>
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
         </section>
     </div>
 </body>
