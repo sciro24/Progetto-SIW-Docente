@@ -24,17 +24,21 @@ public class SquadraValidator implements Validator {
 		Squadra squadra = (Squadra) target;
 
 
-		 if (squadra.getNome() == null || squadra.getNome().trim().isEmpty()) {
-	            errors.reject("NotBlank.squadra.nome");
-	        }
+		if (squadra.getNome() == null || squadra.getNome().trim().isEmpty()) {
+		    errors.reject("NotBlank.squadra.nome");
+		}
 
-	        if (squadra.getAnnoFondazione() == null || squadra.getAnnoFondazione().trim().isEmpty()) {
-	            errors.reject("NotBlank.squadra.annoFondazione");
-	        }
+		if (squadra.getAnnoFondazione() == null || squadra.getAnnoFondazione().trim().isEmpty()) {
+		    errors.reject("NotBlank.squadra.annoFondazione");
+		} else if (!squadra.getAnnoFondazione().matches("\\d+")) {
+		    System.out.println("Errore: Anno di fondazione non numerico");
+		    errors.reject("Numeric.squadra.annoFondazione");
+		}
 
-	        if (squadra.getIndirizzoSede() == null || squadra.getIndirizzoSede().trim().isEmpty()) {
-	            errors.reject("NotBlank.squadra.sede");
-	        }
+		if (squadra.getIndirizzoSede() == null || squadra.getIndirizzoSede().trim().isEmpty()) {
+		    errors.reject("NotBlank.squadra.indirizzoSede");
+		}
+
 
 	}
 

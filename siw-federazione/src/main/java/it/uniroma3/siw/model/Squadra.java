@@ -12,7 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Squadra {
@@ -26,11 +25,12 @@ public class Squadra {
     @NotBlank
     private String nome;
 
-    @NotNull
+    @NotBlank
     private String annoFondazione;
 
     @NotBlank
     private String indirizzoSede;
+    
     
 	private String urlOfPicture;
 

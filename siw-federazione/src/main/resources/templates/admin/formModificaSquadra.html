@@ -17,32 +17,41 @@
 
         <section>
             <form th:action="@{/admin/modificaSquadra}" th:object="${squadra}" method="post">
-                <label for="squadraSelezionata">Seleziona una squadra:</label>
-                <select id="squadraSelezionata" th:field="*{id}">
-                    <option th:each="squadra : ${squadre}" th:value="${squadra.id}" 
-                            th:text="${squadra.nome}"></option> 
-                </select>
+    <label for="squadraSelezionata">Seleziona una squadra:</label>
+    <select id="squadraSelezionata" th:field="*{id}">
+        <option th:each="squadra : ${squadre}" th:value="${squadra.id}" th:text="${squadra.nome}"></option> 
+    </select>
 
-                <h3>Modifica informazioni squadra</h3>
+    <h3>Modifica informazioni squadra</h3>
 
-                <label for="nome">Nome della Squadra:</label>
-                <input type="text" id="nome" th:field="*{nome}" />
-                <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Errore nel campo Nome</div>
-				<br><br>
-                <label for="annoFondazione">Anno di Fondazione:</label>
-                <input type="text" id="annoFondazione" th:field="*{annoFondazione}" />
-                <div th:if="${#fields.hasErrors('annoFondazione')}" th:errors="*{annoFondazione}">Errore nel campo Anno Fondazione</div>
-				<br><br>
-                <label for="indirizzoSede">Indirizzo Sede:</label>
-                <input type="text" id="indirizzoSede" th:field="*{indirizzoSede}" />
-                <div th:if="${#fields.hasErrors('indirizzoSede')}" th:errors="*{indirizzoSede}">Errore nel campo Indirizzo Sede</div>
-				<br><br>
-				<label for="urlOfPicture">URL Immagine:</label>
-				<input type="text" id="urlOfPicture" th:field="*{urlOfPicture}" />
-				<div th:if="${#fields.hasErrors('urlOfPicture')}" th:errors="*{urlOfPicture}">Errore nel campo URL Immagine</div>
-				<br><br><br>
-				<button type="submit">Salva Modifiche</button>
-            </form>
+    <label for="nome">Nome della Squadra:</label>
+    <input type="text" id="nome" th:field="*{nome}" />
+    <span class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+    <br><br>
+
+    <label for="annoFondazione">Anno di Fondazione:</label>
+    <input type="text" id="annoFondazione" th:field="*{annoFondazione}" />
+    <span class="error" th:if="${#fields.hasErrors('annoFondazione')}" th:errors="*{annoFondazione}"></span>
+    <br><br>
+
+    <label for="indirizzoSede">Indirizzo Sede:</label>
+    <input type="text" id="indirizzoSede" th:field="*{indirizzoSede}" />
+    <span class="error" th:if="${#fields.hasErrors('indirizzoSede')}" th:errors="*{indirizzoSede}"></span>
+    <br><br>
+
+    <label for="urlOfPicture">URL Immagine:</label>
+    <input type="text" id="urlOfPicture" th:field="*{urlOfPicture}" />
+    <br><br><br>
+
+    <button type="submit">Salva Modifiche</button>
+</form>
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
         </section>
     </div>
 </body>
