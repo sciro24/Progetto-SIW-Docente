@@ -5,73 +5,67 @@
 </head>
 <body>
 	<div class="container">
-
-	
 	
 	<div><img src="/images/logo-siw.png" width="10%" /></div>
 	<h1>INSERISCI UN NUOVO PRESIDENTE</h1>
 	<section>
         <form th:action="@{/admin/presidente}" method="post">
-            <p><sup>*</sup>: Campo obbligatorio</p>
-            <p>
-                <label>Nome<sup>*</sup></label><br>
-                <input type="text" th:field="${utente.nome}" />
-            </p>
-            <p>
-                <label>Cognome<sup>*</sup></label><br>
-                 <input type="text" th:field="${utente.cognome}" />
-            </p>
-            <p>
-                <label>Codice Fiscale<sup>*</sup></label><br>
-                 <input type="text" th:field="${presidente.codiceFiscale}" />
-            </p>
-            <p>
-                <label>Data di nascita<sup>*</sup></label><br>
-                <input type="date" th:field="${utente.dataNascita}" />
-            </p>
-            <p>
-                <label>Luogo di nascita<sup>*</sup></label><br>
-                <input type="text" th:field="${presidente.luogoNascita}" />
-            </p>
-            <p>
-                <label>Email<sup>*</sup></label><br>
-                <input type="text" th:field="${credenziali.username}" />
-            </p>
-            <p>
-                <label>Password<sup>*</sup></label><br>
-                <input type="password" th:field="${credenziali.password}" />
-            </p>
-            <p>
-                <button>
-                    <a href="/">INDIETRO</a>
-                </button>
-                <button type="submit">INSERISCI</button>
-            </p>
-            <div th:object="${utente}">
-                <ul th:if="${#fields.hasGlobalErrors()}">
-                    <p style="color: red">Errori utente:</p>
-                    <li th:each="err : ${#fields.globalErrors()}" th:text="${err}">
-                        ...
-                    </li>
-                </ul>
-            </div>
-            <div th:object="${credenziali}">
-                <ul th:if="${#fields.hasGlobalErrors()}">
-                    <p style="color: red">Errori credenziali:</p>
-                    <li th:each="err : ${#fields.globalErrors()}" th:text="${err}">
-                        ...
-                    </li>
-                </ul>
-            </div>
-            <div th:object="${presidente}">
-                <ul th:if="${#fields.hasGlobalErrors()}">
-                    <p style="color: red">Errori presidente:</p>
-                    <li th:each="err : ${#fields.globalErrors()}" th:text="${err}">
-                        ...
-                    </li>
-                </ul>
-            </div>
-        </form>
+    <p><sup>*</sup>: Campo obbligatorio</p>
+    <p>
+        <label>Nome<sup>*</sup></label><br>
+        <input type="text" th:field="*{utente.nome}" />
+        <div th:if="${#fields.hasErrors('utente.nome')}" style="color: red">
+            <p th:each="err : ${#fields.errors('utente.nome')}" th:text="${err}"></p>
+        </div>
+    </p>
+    <p>
+        <label>Cognome<sup>*</sup></label><br>
+        <input type="text" th:field="*{utente.cognome}" />
+        <div th:if="${#fields.hasErrors('utente.cognome')}" style="color: red">
+            <p th:each="err : ${#fields.errors('utente.cognome')}" th:text="${err}"></p>
+        </div>
+    </p>
+    <p>
+        <label>Codice Fiscale<sup>*</sup></label><br>
+        <input type="text" th:field="*{presidente.codiceFiscale}" />
+        <div th:if="${#fields.hasErrors('presidente.codiceFiscale')}" style="color: red">
+            <p th:each="err : ${#fields.errors('presidente.codiceFiscale')}" th:text="${err}"></p>
+        </div>
+    </p>
+    <p>
+        <label>Data di nascita<sup>*</sup></label><br>
+        <input type="date" th:field="*{utente.dataNascita}" />
+        <div th:if="${#fields.hasErrors('utente.dataNascita')}" style="color: red">
+            <p th:each="err : ${#fields.errors('utente.dataNascita')}" th:text="${err}"></p>
+        </div>
+    </p>
+    <p>
+        <label>Luogo di nascita<sup>*</sup></label><br>
+        <input type="text" th:field="*{presidente.luogoNascita}" />
+        <div th:if="${#fields.hasErrors('presidente.luogoNascita')}" style="color: red">
+            <p th:each="err : ${#fields.errors('presidente.luogoNascita')}" th:text="${err}"></p>
+        </div>
+    </p>
+    <p>
+        <label>Email<sup>*</sup></label><br>
+        <input type="text" th:field="*{credenziali.username}" />
+        <div th:if="${#fields.hasErrors('credenziali.username')}" style="color: red">
+            <p th:each="err : ${#fields.errors('credenziali.username')}" th:text="${err}"></p>
+        </div>
+    </p>
+    <p>
+        <label>Password<sup>*</sup></label><br>
+        <input type="password" th:field="*{credenziali.password}" />
+        <div th:if="${#fields.hasErrors('credenziali.password')}" style="color: red">
+            <p th:each="err : ${#fields.errors('credenziali.password')}" th:text="${err}"></p>
+        </div>
+    </p>
+    <p>
+        <button type="button" onclick="window.location.href='/'">INDIETRO</button>
+        <button type="submit">INSERISCI</button>
+    </p>
+</form>
+
 
     </section>
 

@@ -90,6 +90,7 @@ public class AuthenticationController {
 
 		UserDetails utenteDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credenziali credenziali = this.credenzialiService.getCredenziali(utenteDetails.getUsername());
+		
 		if (credenziali.getRole().equals(ADMIN_ROLE)) {
 			model.addAttribute("utente", credenziali.getUtente());
 			return "admin/indexAdmin.html";
@@ -115,20 +116,15 @@ public class AuthenticationController {
 	}
 
 	@PostMapping(value = { "/register" })
-	public String registerUtente(@Valid @ModelAttribute("utente") Utente utente,
-			BindingResult utenteBindingResult, @Valid
-			@ModelAttribute("credenziali") Credenziali credenziali,
-			BindingResult credenzialiBindingResult,
-			Model model) {
+	public String registerUtente(@Valid @ModelAttribute("utente") Utente utente,BindingResult utenteBindingResult, @Valid@ModelAttribute("credenziali") Credenziali credenziali,BindingResult credenzialiBindingResult,Model model) {
 
 		// se utente e credential hanno entrambi contenuti validi, memorizza utente e credenziali nel DB
 
 		this.utenteValidator.validate(utente, utenteBindingResult);
 		this.credenzialiValidator.validate(credenziali, credenzialiBindingResult);
+		
 		if(!utenteBindingResult.hasErrors() || !credenzialiBindingResult.hasErrors()) {
-
 			credenziali.setRole(Credenziali.DEFAULT_ROLE);
-
 			this.utenteService.saveUser(utente);
 			credenziali.setUtente(utente);
 			this.credenzialiService.save(credenziali);
