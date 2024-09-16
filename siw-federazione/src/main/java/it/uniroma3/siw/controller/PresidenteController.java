@@ -84,31 +84,39 @@ public class PresidenteController {
 	}
 
 	@PostMapping("presidente/{id}/tesseraGiocatore")
-	public String tesseraGiocatore(@PathVariable("id") Long id,@RequestParam("giocatoreId") Long giocatoreId,@RequestParam("inizioTesseramento") String inizioTesseramento,@RequestParam("fineTesseramento") String fineTesseramento, Model model) {
+	public String tesseraGiocatore(@PathVariable("id") Long id,
+	                               @RequestParam("giocatoreId") Long giocatoreId,
+	                               @RequestParam("inizioTesseramento") String inizioTesseramento,
+	                               @RequestParam("fineTesseramento") String fineTesseramento, 
+	                               Model model) {
+	    try {
+	    	Squadra squadra = squadraService.findById(id);
 
-		
-		Squadra squadra = squadraService.findById(id);
+			if (!controllaPresidente(squadra)) {
+				return "presidente/accessoNegato.html";
+			}
 
-		if (!controllaPresidente(squadra)) {
-			return "presidente/accessoNegato.html";
-		}
+			// Trova il giocatore da tesserare
+			Giocatore giocatore = giocatoreService.findById(giocatoreId);
 
-		// Trova il giocatore da tesserare
-		Giocatore giocatore = giocatoreService.findById(giocatoreId);
+			// Converti le date da string a LocalDate
+			LocalDate inizio = LocalDate.parse(inizioTesseramento);
+			LocalDate fine = LocalDate.parse(fineTesseramento);
 
-		// Converti le date da string a LocalDate
-		LocalDate inizio = LocalDate.parse(inizioTesseramento);
-		LocalDate fine = LocalDate.parse(fineTesseramento);
+			// Tesseramento del giocatore
+			giocatore.setSquadra(squadra);
+			giocatore.setInizioTesseramento(inizio);
+			giocatore.setFineTesseramento(fine);
+			giocatoreService.save(giocatore);
 
-		// Tesseramento del giocatore
-		giocatore.setSquadra(squadra);
-		giocatore.setInizioTesseramento(inizio);
-		giocatore.setFineTesseramento(fine);
-		giocatoreService.save(giocatore);
-
-		return "presidente/giocatoreTesserato.html";
-
+			return "presidente/giocatoreTesserato.html";
+	        
+	    } catch (Exception e) {
+	        // Se c'è un'eccezione, lancia IllegalArgumentException
+	        throw new IllegalArgumentException("Errore inizio o fine tesseramento non validi", e);
+	    }
 	}
+
 
 
 	@GetMapping("/presidente/{id}/formSvincolaGiocatore")
