@@ -30,7 +30,6 @@
                 <span th:text="${presidente.utente.cognome}">Cognome</span>
             </h1>
             
-            <!-- Messaggio per il caso in cui non ci sia una squadra -->
             <span th:if="${squadra == null}">
 			<h3 style="color: red;">NON SEI PRESIDENTE DI NESSUNA SQUADRA!!!</h3>
             </span>
