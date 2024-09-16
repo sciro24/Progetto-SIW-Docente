@@ -86,6 +86,7 @@ public class PresidenteController {
 	@PostMapping("presidente/{id}/tesseraGiocatore")
 	public String tesseraGiocatore(@PathVariable("id") Long id,@RequestParam("giocatoreId") Long giocatoreId,@RequestParam("inizioTesseramento") String inizioTesseramento,@RequestParam("fineTesseramento") String fineTesseramento, Model model) {
 
+		
 		Squadra squadra = squadraService.findById(id);
 
 		if (!controllaPresidente(squadra)) {

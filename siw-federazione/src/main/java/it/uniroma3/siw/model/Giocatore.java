@@ -12,9 +12,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 public class Giocatore {
@@ -45,8 +47,10 @@ public class Giocatore {
     @NotBlank
     private String ruolo;
     
+    @PastOrPresent(message = "La data di inizio tesseramento non può essere nel futuro")
     private LocalDate inizioTesseramento;
     
+    @Future(message = "La data di fine tesseramento non può essere nel passato")
     private LocalDate fineTesseramento;
 
     @ManyToOne

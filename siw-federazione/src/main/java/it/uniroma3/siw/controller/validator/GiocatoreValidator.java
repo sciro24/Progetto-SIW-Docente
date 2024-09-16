@@ -43,12 +43,16 @@ public class GiocatoreValidator implements Validator {
         if (ruolo.isEmpty()) {
             errors.reject("NotBlank.giocatore.ruolo");
         }
+        
+        LocalDate inizio = giocatore.getInizioTesseramento();
+        LocalDate fine = giocatore.getFineTesseramento();
+        LocalDate oggi = LocalDate.now();
 
-        if (giocatore.getInizioTesseramento() != null && giocatore.getFineTesseramento() != null) {
-            if (giocatore.getFineTesseramento().isBefore(giocatore.getInizioTesseramento())) {
+        if (inizio != null && fine != null) {
+            if (fine.isBefore(inizio)) {
                 errors.reject("Invalid.giocatore.fineTesseramento");
             }
-            if (giocatore.getFineTesseramento().isBefore(LocalDate.now())) {
+            if (fine.isBefore(oggi)) {
                 errors.reject("Future.giocatore.fineTesseramento");
             }
         }
