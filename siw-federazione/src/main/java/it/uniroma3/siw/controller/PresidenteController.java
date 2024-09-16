@@ -156,7 +156,8 @@ public class PresidenteController {
 		if (giocatore.getSquadra() != null && giocatore.getSquadra().equals(squadra)) {
 			// Rimuovi il giocatore dalla squadra e aggiorna il tesseramento
 			giocatore.setSquadra(null);
-			giocatore.setFineTesseramento(LocalDate.now());  // Setta la data di fine tesseramento a oggi
+			giocatore.setInizioTesseramento(null);
+			giocatore.setFineTesseramento(null);  
 			giocatoreService.save(giocatore);
 		} else {
 			throw new RuntimeException("Il giocatore non è tesserato nella tua squadra.");

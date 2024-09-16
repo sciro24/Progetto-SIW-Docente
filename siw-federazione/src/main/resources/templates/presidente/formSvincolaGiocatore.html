@@ -17,7 +17,6 @@
                             <option value="" disabled>Non ci sono giocatori da svincolare</option>
                         </th:block>
                         <th:block th:if="${!#lists.isEmpty(giocatoriTesserati)}">
-                            <option value="" disabled selected>-- Seleziona un giocatore --</option>
                             <th:block th:each="giocatore : ${giocatoriTesserati}">
                                 <option th:value="${giocatore.id}" th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"></option>
                             </th:block>

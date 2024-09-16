@@ -20,7 +20,6 @@
                <label for="giocatore">Seleziona un giocatore da Tesserare:</label>
         <select id="giocatore" name="giocatoreId">
             <th:block th:if="${!#lists.isEmpty(giocatoriLiberi)}">
-                <option value="" disabled selected>-- Seleziona un giocatore --</option>
                 <th:block th:each="giocatore : ${giocatoriLiberi}">
                     <option th:value="${giocatore.id}" th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"></option>
                 </th:block>
